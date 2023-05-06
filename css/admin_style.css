@@ -1,0 +1,405 @@
+/* ----------------------------- Start dashboard icon --------------------- */
+
+.dashboard_layout{
+display: grid;
+grid-template-columns: 240px 1fr;
+grid-template-rows: 50px 1fr 50px;
+grid-template-areas:
+    "sidenav header"
+    "sidenav main"
+    "sidenav footer";
+height: 100vh;
+transition: all .3s linear;
+}
+.header, .footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    background-color:var(--admin-header-color);
+}
+.dashboard_layout .footer {
+    grid-area: footer;
+}
+.dashboard_layout .header{
+    grid-area: header;
+    position: relative;
+}
+.dashboard_layout .header .user_face{
+    position: relative;
+    padding: 6px;
+    background-color: #fff;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+}
+.header .user_face .user_image{
+    width: 30px;
+    height: 30px;
+    border-radius: 30px;
+}
+.header .header_right{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    user-select: none;
+}
+.dashboard_layout .header .user_face p.user_name{
+    padding: 0 5px;
+    display: none;   /* to hide paragraph on mopile mode */
+}
+.dashboard_layout .header .user_info{
+    position: absolute;
+    padding: 10px;
+    background-color: #fff;
+    right: 0px;
+    top: 46px;
+    border-radius: 10px;
+    display: none; 
+}
+.dashboard_layout .header .user_info.show{
+    display: block;
+}
+
+/* -------------------------------------------------------------------------------- */
+.header .header_right .message_count{
+    position: relative;
+    cursor: pointer;
+    padding: 10px;
+    width: fit-content;
+}
+.header_right .message_count i{
+    font-size: 18px;
+    color: #fff;
+}
+.header_right .message_count p{
+    position: absolute;
+    color: #ff0000;
+    top: 0px;
+    right: 6px;
+    font-size: 16px;
+    user-select: none;
+}
+
+.header .message_block{
+    width: 290px;
+    background: #fff;
+    position: absolute;
+    top: 55px;
+    border-radius: 10px;
+    overflow-y: scroll;
+    right: 20px;
+    height: 0;
+    padding: 0;
+    transition: all 0.4 linear;
+}
+.message_block.active{
+    height: 400px;
+    padding: 10px;
+}
+.header .message_block::-webkit-scrollbar{
+    display: none ;
+}
+.message_block .users_message{
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    gap: 10px;
+    border-radius: 10px;
+    width: 100%;
+    margin: 5px 0;
+    cursor: pointer;
+}
+.message_block .users_message:hover{
+    background-color: #DADAE3;
+}
+.message_block .users_message .user_image{
+    border-radius: 50%;
+    width: fit-content;
+    padding: 3px;
+    background-color: #02e002;   /* this color will change accorading to user offline or online*/
+    display: flex;
+    align-items: center;
+}
+.message_block .users_message .user_image img{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+.message_block .users_message .message_text{
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 100%;    
+}
+.message_text .row{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.users_message .message_text .message,
+.users_message .message_text .sender{
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 77%;
+}
+.users_message .message_text .message{
+    width: 92%;
+    color: #8a8a8a;
+}
+.message_text .message_time,
+.message_text .counter{
+    font-size: 13px;
+    color: #02e002;
+}
+.message_text .counter{
+    padding:2px;
+    background-color: #02e002;
+    border-radius: 50%;
+    color: #f5f5f5;
+}
+/* ---------------------------------------------------------- */
+
+.dashboard_layout .sidenav{
+grid-area: sidenav;
+background-color:var(--admin-sidenav-color);
+overflow-y: auto;
+scroll-behavior: smooth;
+position: relative;
+display: flex; /* Will be hidden on mobile */
+flex-direction: column;
+transition: all .3s linear;
+overflow-x: hidden;
+user-select: none;
+}
+.sidenav .sidebar_logo{
+    position: relative;
+    padding: 16px 20px 15px 25px;
+    border-bottom: 2px solid var(--admin-main-color);
+    justify-content: space-between;
+    cursor: pointer;
+    
+}
+.sidenav .sidebar_logo p::after{
+    content: "";
+    width: 2px;
+    height: 100%;
+    background-color: var(--admin-main-color);
+    position: absolute;
+    top: 0;
+    right: 58px;
+}
+.dashboard_layout .main {
+grid-area: main;
+background-color:var( --admin-main-color) ;
+overflow-y: scroll;
+}
+.sidenav .sidebar_logo,
+.sidenav .side_item{
+    color: #ddd;  
+    display: flex;
+    align-items: center;
+}
+.sidenav .side_item{
+    padding: 16px 20px 16px 25px;
+    transition: all .3s linear;
+}
+.sidenav .side_item p{
+    padding-left: 10px;
+}
+.sidenav .side_item:hover,
+.sidenav .side_item.active{
+    background-color: rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+}
+.main .main_item{
+display: none;
+transition: all .3s linear;
+}
+.main .main_item.show{
+    display: block;
+}
+.dashboard_layout .main{
+    padding: 5px;
+}
+/*------------------------------------------------------------------------ */
+.dashboart .main-header {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px;
+    padding: 20px;
+    height: 150px; /* Force our height since we don't have actual content yet */
+    background-color: #e3e4e6;
+    color: slategray;
+}
+.dashboart .box_container{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(265px, 1fr)); /* Where the magic happens */
+    grid-auto-rows: 94px;
+    grid-gap: 20px;
+    margin: 20px;
+    grid-auto-flow: dense;
+}
+.dashboart .box_container .box{
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    box-shadow: var(--box-shadow);
+    text-align: center;
+    background-color: var(--admin-box-background);
+    color: #fff;
+}
+.dashboart .main-cards{
+    column-count: 2;
+    column-gap: 20px;
+    margin: 20px;
+}
+.dashboart .main-cards .card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    background-color: #4dcbd1;
+    margin-bottom: 20px;
+    -webkit-column-break-inside: avoid;
+    padding: 24px;
+    box-sizing: border-box;
+}
+/* Force varying heights to simulate dynamic content */
+.card:first-child {
+height: 485px;
+}
+.card:nth-child(2) {
+height: 200px;
+}
+.card:nth-child(3) {
+height: 265px;
+}
+/* Hamburger menu icon, stays fixed on mobile for any possible scrolling */
+.menu-icon {
+    position: fixed;
+    display: flex;
+    top: 5px;
+    left: 10px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    z-index: 1;
+    cursor: pointer;
+    padding: 12px;
+    background-color: #DADAE3;
+}
+/* Make room for the menu icon on mobile */
+.header__search {
+margin-left: 42px;
+}
+/* Make our dashboard responsive in a mobile-first format */
+.dashboard_layout {
+    display: grid;
+    grid-template-columns: 1fr; /* Side nav is hidden on mobile */
+    grid-template-rows: 50px 1fr 50px;
+    grid-template-areas:
+    "header"
+    "main"
+    "footer";
+    height: 100vh;
+}
+.dashboard_layout .sidenav {
+grid-area: sidenav;
+display: flex;
+flex-direction: column;
+height: 100%;
+width: 240px;
+position: fixed;
+overflow-y: auto;
+box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
+z-index: 2; /* Needs to sit above the hamburger menu icon */
+background-color: var(--admin-sidenav-color);
+transform: translateX(-245px);
+transition: all .3s linear;
+}
+/* The active class is toggled on hamburger and close icon clicks */
+.dashboard_layout .sidenav.active {
+transform: translateX(0);
+}
+/* Only visible on mobile screens */
+.sidebar_logo .sidenav__close{
+display: block;
+cursor: pointer;
+font-size: 20px;
+}
+.sidebar_logo .side_arrow{
+    display: none;
+}
+.dashboart .main-cards {
+column-count: 1;
+column-gap: 20px;
+margin: 20px;
+}
+/* ========================================================================================== */
+/* Non-mobile styles, 750px breakpoint */
+@media only screen and (min-width: 46.875em) {
+/* Show the sidenav */  
+.dashboard_layout {
+    grid-template-columns: 240px 1fr; /* Show the side nav for non-mobile screens */
+    grid-template-areas:
+    "sidenav header"
+    "sidenav main"
+    "sidenav footer";
+    transition: all .3s linear;
+}
+.dashboard_layout .sidenav{
+    display: flex;
+    flex-direction: column;
+    position: relative; /* Fixed position on mobile */
+    transform: translateX(0);
+}
+.sidebar_logo .sidenav__close{
+display: none;
+}
+.sidebar_logo .side_arrow{
+    display: block;
+}
+.dashboart .main-cards {
+    column-count: 1;
+}
+/* ----------------- stert small sidenav feature ------------ */
+.dashboard_layout.small{
+    display: grid;
+    grid-template-columns: 75px 1fr;
+    grid-template-rows: 50px 1fr 50px;
+    grid-template-areas:
+    "sidenav header"
+    "sidenav main"
+    "sidenav footer";
+    height: 100vh;
+    transition: all .3s linear;
+}
+.dashboard_layout .sidenav.small{
+    width: 75px;
+}
+.sidenav.small div p{
+    display: none;
+}
+/* -----------------end small sidenav feature ------------ */
+}
+
+
+
+/* Medium-sized screen breakpoint (tablet, 1050px) */
+@media only screen and (min-width: 65.625em) {
+/* Break out main cards into two columns */
+.dashboart .main-cards {
+    column-count: 2;
+}
+.dashboard_layout .header .user_face p.user_name{
+    display: block;
+}
+}
+/* ========================================================================================== */
+/* ----------------------------- end dashboard icon --------------------- */
+

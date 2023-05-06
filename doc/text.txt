@@ -1,0 +1,206 @@
+-------------admin---------------
+user:admin.khaled1@gmail.com
+pass:Admin@Khaled@010
+
+
+
+
+
+
+
+
+
+
+<?php
+        if(isset($_POST['new_message'])){
+            foreach ($support_messages as $message){
+                $query_3_users=mysqli_query($conn,"SELECT * FROM `users` WHERE `user_id`={$message['user_id']}");
+                if(mysqli_num_rows($query_3_users)>0){
+                    $row_3_users=mysqli_fetch_assoc($query_3_users);
+                    
+                    echo " 
+                    <div class='message_block' id='message_block'>
+                    <div class='users_message'>
+                        <div class='user_image'>
+                            <img src={$row_3_users['image']} alt=''>
+                        </div>
+
+                        <div class='message_text'>
+                            <div class='row'>
+                                <p class='sender'>{$row_3_users['user_name']}</p>";
+
+                            echo "<p class='message_time'>".find_message_time($message['message_time'])."</p>";
+                    echo        "</div>
+                            <div class='row'>
+                                <p class='message'>{$message['message']}</p>
+                                <p class='counter'>3</p>
+                            </div>
+                        </div> 
+                        </div>
+                    </div>";
+                    
+                }
+
+            }
+                
+        }else{
+            // echo "you dom,t have message!";
+        }
+        ?>
+
+
+
+
+
+
+
+
+
+ <div class="track_order">
+                <form action="" method="post" class="search">
+                    <input type="text" name="track" id="track" placeholder="track order by order-id ">                
+                    <button type="submit" class="searchbutton" name="searchbutton">
+                       <i class="fa fa-search"></i>
+                    </button>
+                </form>
+
+                <?php
+                if(isset($_POST["update_button"])){
+                    echo "update";
+                    //     echo "<div class='tracking_container'>
+                    //     <form action='' method='post'>
+                    //         <h5 class='order_id'>#order-id: ". $order_id ."</h5>
+                    //         <div class='order_detail'>
+                    //             <div><h5>order location</h5><input type='text' name='update_location' value=".$row_tracking['order_location']."></div>
+                    //             <div><h5>product name</h5> <input type='text' name='update_name' value=".$row_tracking['prod_name']."></div>
+                    //             <div><h5>shipped date</h5> <input type='text' name='update_shipped_date' value=".$row_tracking['shipped_date']."></div>
+                    //             <div><h5>clint phone</h5> <input type='text' name='update_phone' value=".$row_tracking['phone']."></div>
+                    //             <div><h5>total price</h5> <input type='text' name='update_total_price' value=".$row_tracking['total_price']."></div>
+                    //             <div class='update_order_buttons'>
+                    //                 <button type='submit' class='update_button' name='update_button'>update</button>
+                    //                 <button type='submit' class='cancel_button' name='cancel_button'>remove</button>
+                    //             </div>
+                    //         </div>
+                    //     </form>
+                    // </div>";
+                }
+                
+                
+                if(isset($_POST["searchbutton"])){
+                    
+                    $order_id=$_POST["track"];
+                    if(!empty($order_id)){
+                        $tracking=mysqli_query($conn,
+                        "SELECT o.order_location,o.prod_id,o.user_id,o.shipped_date,
+                        o.total_price,p.prod_id,p.prod_name,u.user_id,u.user_name,u.phone
+                        FROM orders o INNER JOIN products p on p.prod_id=o.prod_id INNER JOIN users u on u.user_id=o.user_id WHERE order_id=$order_id");
+                        
+                        if($tracking){
+                            if(mysqli_num_rows($tracking) > 0){
+                                $row_tracking=mysqli_fetch_assoc($tracking);
+                                echo "<div class='tracking_container'>
+                                <form action='' method='post'>
+                                    <h5 class='order_id'>#order-id: ". $order_id ."</h5>
+                                    <div class='order_detail'>
+                                        <div><h5>order location</h5><span>".$row_tracking['order_location']."</sapn></div>
+                                        <div><h5>product name</h5> <span>".$row_tracking['prod_name']."</span></div>
+                                        <div><h5>shipped date</h5> <span>".$row_tracking['shipped_date']."</span></div>
+                                        <div><h5>clint phone</h5> <span>".$row_tracking['phone']."</span></div>
+                                        <div><h5>total price</h5> <span>".$row_tracking['total_price']."</span></div>
+                                        <div class='edit_order_buttons'>
+                                            <button type='submit' class='update_button' name='update_button'>update</button>
+                                            <button type='submit' class='remove_button' name='remove_button'>remove</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>";
+                            
+    
+                            }else{
+                                echo "<p class='order_error'>this order id: ". $order_id ." is not fount!</p>";
+                            } 
+                        }else{
+                            echo "<p class='order_error'>please enter correct number of id!</p>";
+                        }
+                    };
+                };
+             
+
+                ?>
+                
+            </div>
+
+
+            
+/* 
+.dashboart .track_order .order_error{
+    text-align: center;
+    color: var(--danger-color);
+    font-size: 18px;
+}
+.dashboart .track_order .search{
+    display: flex;
+    align-items: center;
+    margin: 1rem 0;
+}
+.dashboart .track_order #track{
+    padding: .9rem .6rem;
+    width: 100%;
+    font-size: 15px;
+    border-radius: 0.5rem 0 0 .5rem;
+}
+.dashboart .track_order #track:focus{
+    box-shadow: 3px 3px 25px #648ca6;
+}
+.dashboart .track_order .searchbutton {
+    border: 1px solid var(--admin-buttons);
+    background: var(--admin-buttons);
+    text-align: center;
+    color: #eeeeee;
+    border-radius: 0 0.5rem .5rem 0;
+    cursor: pointer;
+    font-size: 20px;
+    padding: .7rem .6rem;
+}
+.dashboart .track_order .tracking_container{
+    padding: 1rem;
+    background: #fff;
+    text-align: center;
+}
+.track_order .tracking_container .order_id{
+    font-size: 15px;
+    background: var(--green-btn);
+    color: #fff;
+    width: fit-content;
+    padding: 5px;
+    border-radius: 10px;
+    margin: auto;
+}
+.track_order .tracking_container .order_detail{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+.track_order .tracking_container .order_detail input{
+text-align: center;
+}
+.track_order .tracking_container .order_detail .edit_order_buttons{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.tracking_container .order_detail .edit_order_buttons .update_button,
+.tracking_container .order_detail .edit_order_buttons .remove_button{
+    padding: 10px;
+    color: #fff;
+    font-size: 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.tracking_container .order_detail .edit_order_buttons .update_button{
+    background:var(--success-color) ;
+}
+.tracking_container .order_detail .edit_order_buttons .remove_button{
+    background: var(--danger-color);
+} */

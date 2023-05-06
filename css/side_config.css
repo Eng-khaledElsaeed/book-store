@@ -1,0 +1,93 @@
+/* google font */
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
+
+*{
+    font-family: 'Rubik', sans-serif;
+    padding: 0;
+    margin: 0;
+    outline: 0;border: none;
+    text-decoration: none;
+    box-sizing: border-box;
+    transition: all 0.2s linear;
+}
+:root{
+    --original-orange:#ffa559;
+    --yellow-shadow:#caff00;
+    --green-btn:#1BBD64;
+    --box-shadow:10px 10px 20px 0px rgba(101,101,101,0.5);
+    --border: 1px solid #959595;
+    --admin-buttons:rgb(0 158 190);
+    --danger-color:#e90f10;
+    --warning-color: #ffad00;
+    --success-color:#02b502;
+    --admin-header-color:#4b9394;
+    --admin-sidenav-color: #2a494d;
+    --admin-main-color:#72d9d5;
+    --admin-box-background:#00c7af;
+}
+/* if you found in block comment as line consist of( * )it mean these are generic
+if if you found in block comment as line consist of( - )it mean these are spechial part  */
+
+/* width */
+::-webkit-scrollbar {
+width: 10px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+    /* box-shadow: inset 0 0 10px white; */
+    border-radius: 3px;
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: rgb(0 158 190);
+    border-radius: 3px;
+}
+
+/* ******************** clib path shapes for design **********************/
+.shape-1{
+    background: var(--original-orange);
+    -webkit-clip-path: polygon(0 0, 29% 0, 65% 100%, 0% 100%);
+    clip-path: polygon(0 0, 29% 0, 65% 100%, 0% 100%);
+    width: 50%;
+    height: 100%;
+    position: fixed;;
+    opacity: .5;
+    z-index: -2;
+}
+.shape-3{
+    background: var(--original-orange);
+    opacity: 0.5;
+    -webkit-clip-path: circle(50% at 85% 19%);
+    clip-path: circle(50% at 85% 19%);
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 200px;
+    height: 200px;
+}
+/* ******************** clib path shapes for design **********************/
+
+/* *********************** start progress par***************************** */
+.progress-bar{
+    height: 3px !important;
+    margin: 5px;
+}
+.progress-bar-danger {
+    background-color: var(--danger-color);
+}
+.progress-bar-warning{
+    background-color: var(--warning-color);
+}
+.progress-bar-success{
+    background-color: var(--success-color);
+}
+/* *********************** end progress par ******************************* */
+/* ********************** interactive styles classes********************* */
+.show{
+    display: block;
+}
+.hid{
+    display: block;
+}
+
+/* ********************** interactive styles classes********************* */
