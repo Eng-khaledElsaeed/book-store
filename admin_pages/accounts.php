@@ -1,5 +1,5 @@
 <?php
-include 'config.php';
+include '../database/config.php';
 //Beginning the session.
 session_start();
 
@@ -8,7 +8,7 @@ if(isset($_GET['timeout']) || !isset($admin_id)){
     mysqli_query($conn, "UPDATE `users` SET connection_status = 'offline' WHERE  user_id='".$admin_id."' LIMIT 1");
     session_unset();
     session_destroy(); 
-    header("location:sign_in.php");
+    header("location:../sign_in.php");
 }
 
 
@@ -20,14 +20,14 @@ if(isset($_GET['timeout']) || !isset($admin_id)){
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>dashboard</title>
+    <title>accounts</title>
     <!-- sweetalert -->
         <link href="
     https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.min.css
     " rel="stylesheet">
     <!-- main css file -->
-    <link rel="stylesheet" href="css/side_config.css">
-    <link rel="stylesheet" href="css/admin_style.css">
+    <link rel="stylesheet" href="../css/side_config.css">
+    <link rel="stylesheet" href="../css/admin_style.css">
 </head>
 <body>
    <div class="dashboard_layout">
@@ -44,16 +44,6 @@ if(isset($_GET['timeout']) || !isset($admin_id)){
         <div class="main_item acoounts show">
             
         </div>
-        <div class="main_item products">products</div>
-        <div class="main_item category">category</div>
-        <div class="main_item seller">seller</div>
-        <div class="main_item buyer">buyer</div>
-        <div class="main_item tracking">tracking</div>
-        <div class="main_item chatting">chatting</div>
-        <div class="main_item pending_accounts">pending_accounts</div>
-        <div class="main_item pending_orders">pending_orders</div>
-        <div class="main_item pending_products">pending_products</div>
-
     </main>
 
  <?php include('admin_footer.php'); ?>
@@ -66,6 +56,6 @@ if(isset($_GET['timeout']) || !isset($admin_id)){
     <script src="
     https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js
     "></script>
-    <script src="js/admin.js"></script>
+    <script src="../js/admin.js"></script>
 </body>
 </html>

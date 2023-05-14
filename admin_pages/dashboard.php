@@ -1,5 +1,5 @@
 <?php
-include 'config.php';
+include '../database/config.php';
 //Beginning the session.
 session_start();
 
@@ -8,7 +8,7 @@ if(isset($_GET['timeout']) || !isset($admin_id)){
     mysqli_query($conn, "UPDATE `users` SET connection_status = 'offline' WHERE  user_id='".$admin_id."' LIMIT 1");
     session_unset();
     session_destroy(); 
-    header("location:sign_in.php");
+    header("location:../sign_in.php");
 }
 
 ?>
@@ -25,8 +25,8 @@ if(isset($_GET['timeout']) || !isset($admin_id)){
     https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.min.css
     " rel="stylesheet">
     <!-- main css file -->
-    <link rel="stylesheet" href="css/side_config.css">
-    <link rel="stylesheet" href="css/admin_style.css">
+    <link rel="stylesheet" href="../css/side_config.css">
+    <link rel="stylesheet" href="../css/admin_style.css">
 </head>
 <body>
    <div class="dashboard_layout">
@@ -138,7 +138,10 @@ if(isset($_GET['timeout']) || !isset($admin_id)){
             </div>
 
             <div class="main-cards">
-                <div class="card">Card</div>
+                <div class="card chart1">
+                    <svg id="product-chart"></svg>
+                    
+                </div>
                 <div class="card">Card</div>
                 <div class="card">Card</div>
             </div>
@@ -153,13 +156,14 @@ if(isset($_GET['timeout']) || !isset($admin_id)){
  <?php include('admin_footer.php'); ?>
 
    </div>
-
+    <!-- D3.js charts in dashboard -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
     <!-- main javascript file  -->
     <script src="https://kit.fontawesome.com/9e0e68f55e.js" crossorigin="anonymous"></>
     // <!-- sweetalert -->
     <script src="
     https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js
     "></script>
-    <script src="js/admin.js"></script>
+    <script src="../js/admin.js"></script>
 </body>
 </html>

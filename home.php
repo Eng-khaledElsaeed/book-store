@@ -1,11 +1,11 @@
 <?php
-include 'config.php';
+include 'database/config.php';
 session_start();
 
 
 $user_id=$_SESSION['user_id'];
 if(!isset($user_id)){
-    header("location:login.php");
+    header("location:sign_in.php");
 }
 
 ?>

@@ -382,7 +382,8 @@ display: none;
 .dashboard_layout .sidenav.small{
     width: 75px;
 }
-.sidenav.small div p{
+.sidenav.small .sidebar_logo > p,
+.sidenav.small .side_item > p{
     display: none;
 }
 /* -----------------end small sidenav feature ------------ */

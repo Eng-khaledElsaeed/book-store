@@ -19,7 +19,7 @@ if(isset($_GET['timeout']) || !isset($admin_id)){
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>sellers</title>
+    <title>books</title>
     <!-- sweetalert -->
         <link href="
     https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.min.css
@@ -40,8 +40,8 @@ if(isset($_GET['timeout']) || !isset($admin_id)){
 
 
     <main class="main">
-        <div class="main_item seller show">
-            seller
+        <div class="main_item products show">
+            Books
         </div>
     </main>
 
