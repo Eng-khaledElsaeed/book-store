@@ -39,9 +39,39 @@ if(isset($_GET['timeout']) || !isset($admin_id)){
 
 
 
-    <main class="main">
+    <main class="main" style="background: #fff;padding:0px">
         <div class="main_item products show">
-            Books
+            <div class="add_products_form">
+                <h3>Add Products</h3>
+                <form action="" method="post" enctype="multipart/form-data"class="form2">
+            
+                    <label for="name">Product Name:</label>
+                    <input type="text" id="name" name="name" required>
+
+                    <label for="amount">Amount:</label>
+                    <input type="number" id="amount" name="amount" required>
+
+                    <label for="price">Price:</label>
+                    <input type="text" id="price" name="price" required>
+
+                    <label for="image">upload Image:</label>
+                    <input type="file" id="image" name="image" required>
+
+                    <label for="description">Description:</label>
+                    <input type="text" id="description" name="description" required>
+                
+                    <label for="category">Category:</label>
+                    <select id="category" name="category" required>
+                    <option value="">Select a category</option>
+                    <option value="electronics">Electronics</option>
+                    <option value="clothing">Clothing</option>
+                    <option value="home">Home</option>
+                    </select>
+                    
+                    <input type="submit" value="Add Product">
+                </form>
+            </div>
+            
         </div>
     </main>
 
@@ -50,8 +80,8 @@ if(isset($_GET['timeout']) || !isset($admin_id)){
    </div>
 
     <!-- main javascript file  -->
-    <script src="https://kit.fontawesome.com/9e0e68f55e.js" crossorigin="anonymous"></>
-    // <!-- sweetalert -->
+    <script src="https://kit.fontawesome.com/9e0e68f55e.js" crossorigin="anonymous"></script>
+    <!-- sweetalert -->
     <script src="
     https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js
     "></script>

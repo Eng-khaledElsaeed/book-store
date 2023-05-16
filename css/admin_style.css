@@ -197,7 +197,7 @@ user-select: none;
 .dashboard_layout .main {
 grid-area: main;
 background-color:var( --admin-main-color) ;
-overflow-y: scroll;
+/* overflow-y: scroll; */
 }
 .sidenav .sidebar_logo,
 .sidenav .side_item{
@@ -404,3 +404,95 @@ display: none;
 /* ========================================================================================== */
 /* ----------------------------- end dashboard icon --------------------- */
 
+
+/*---------------------------------------- start product page style --------------------------------- */
+/* .add_products_form{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: #fff;
+    padding: 10px;
+    width: 100%;
+    text-transform: capitalize;
+    background-color: var(--admin-sidenav-color);
+    border-top: 2px solid #72d9d5;
+}
+
+.add_products_form h3{
+text-align: center;
+padding: 10px;
+}
+.add_products_form form{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.add_products_form form div{
+    display: flex; 
+    align-items: center;
+    gap: 5px;
+}
+.add_products_form form input{
+    height: 30px;
+    background: #f3f3f3;
+    color: #000;
+    font-size: 15px;
+    padding: 3px 10px;
+    border-radius: 10px;
+    margin: 5px 0;
+} */
+/*---------------------------------------- end product page style --------------------------------- */
+
+/* Basic styles for the form    " chatgpt"*/
+form {
+max-width: 500px;
+margin: 0 auto;
+font-family: Arial, sans-serif;
+}
+
+label {
+display: block;
+margin-bottom: 10px;
+font-weight: bold;
+}
+
+input[type="text"],input[type="number"], select {
+width: 100%;
+padding: 10px;
+border: 1px solid #ccc;
+border-radius: 4px;
+box-sizing: border-box;
+margin-bottom: 20px;
+}
+
+input[type="submit"] {
+background-color: #4CAF50;
+color: white;
+padding: 12px 20px;
+border: none;
+border-radius: 4px;
+cursor: pointer;
+}
+
+input[type="submit"]:hover {
+background-color: #45a049;
+}
+
+/* Responsive styles for the form */
+@media only screen and (max-width: 600px) {
+form {
+    max-width: 100%;
+    padding: 0 20px;
+}
+
+input[type="text"],input[type="number"], select {
+    margin-bottom: 10px;
+}
+
+input[type="submit"] {
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+}
+}
