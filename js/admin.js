@@ -91,7 +91,7 @@ function session_timeout(){
                     })
             
                 }
-            }, 1000);
+            }, 10000);
 
         });
     });
@@ -102,123 +102,28 @@ function session_timeout(){
 
 })
 
-
-// let message_block=document.getElementById("message_block");
-// let message_count=document.querySelector(".message_count");
-
-// message_count.addEventListener('click',()=>{
-//     message_block.classList.toggle("active");
-// })
-
-
-// // Set up SVG and chart dimensions
-// var svgWidth = 400;
-// var svgHeight = 400;
-// var chartMargin = { top: 20, right: 10, bottom: 20, left: 10 };
-// var chartWidth = svgWidth - chartMargin.left - chartMargin.right;
-// var chartHeight = svgHeight - chartMargin.top - chartMargin.bottom;
-
-// // Create SVG element
-// var svg = d3.select("#product-chart")
-//   .attr("width", svgWidth)
-//   .attr("height", svgHeight);
-
-// // Create chart group
-// var chart = svg.append("g")
-//   .attr("transform", "translate(" + chartMargin.left + "," + chartMargin.top + ")");
-
-// // Define data
-// var data = [
-//   { category: 'Category 1', products: 10 },
-//   { category: 'Category 2', products: 20 },
-//   { category: 'Category 3', products: 15 }
-// ];
-
-// // Create x and y scales
-// var xScale = d3.scaleBand()
-//   .range([0, chartWidth])
-//   .padding(0.1)
-//   .domain(data.map(function(d) { return d.category; }));
-  
-// var yScale = d3.scaleLinear()
-//   .range([chartHeight, 0])
-//   .domain([0, d3.max(data, function(d) { return d.products; })]);
-
-// // Create x and y axes
-// var xAxis = d3.axisBottom(xScale);
-// var yAxis = d3.axisLeft(yScale);
-
-// // Add x axis to chart
-// chart.append("g")
-//   .attr("class", "x axis")
-//   .attr("transform", "translate(0," + chartHeight + ")")
-//   .call(xAxis);
-
-// // Add y axis to chart
-// chart.append("g")
-//   .attr("class", "y axis")
-//   .call(yAxis);
-
-// // Create bars
-// chart.selectAll(".bar")
-//   .data(data)
-//   .enter().append("rect")
-//   .attr("class", "bar")
-//   .attr("x", function(d) { return xScale(d.category); })
-//   .attr("y", function(d) { return yScale(d.products); })
-//   .attr("height", function(d) { return chartHeight - yScale(d.products); })
-//   .attr("width", xScale.bandwidth());
-// Load data from server
-d3.json("data.php", function(data) {
-
-// Set up chart dimensions
-var margin = {top: 20, right: 20, bottom: 30, left: 40},
-    width = 960 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
-
-// Create x and y scales
-var x = d3.scaleBand()
-    .range([0, width])
-    .padding(0.1)
-    .domain(data.map(function(d) { return d.category; }));
-
-var y = d3.scaleLinear()
-    .range([height, 0])
-    .domain([0, d3.max(data, function(d) { return d.products; })]);
-
-// Create x and y axes
-var xAxis = d3.axisBottom(x);
-
-var yAxis = d3.axisLeft(y)
-    .ticks(10, "%");
-
-// Create chart SVG element
-var svg = d3.select("#product-chart")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-    .append("g")
-    .attr("transform",
-            "translate(" + margin.left + "," + margin.top + ")");
-
-// Add bars to chart
-svg.selectAll(".bar")
-    .data(data)
-    .enter().append("rect")
-    .attr("class", "bar")
-    .attr("x", function(d) { return x(d.category); })
-    .attr("width", x.bandwidth())
-    .attr("y", function(d) { return y(d.products); })
-    .attr("height", function(d) { return height - y(d.products); });
-
-// Add x axis to chart
-svg.append("g")
-    .attr("class", "x axis")
-    .attr("transform", "translate(0," + height + ")")
-    .call(xAxis);
-
-// Add y axis to chart
-svg.append("g")
-    .attr("class", "y axis")
-    .call(yAxis);
-
-});
+function CRUD_message(msg){
+    console.log(msg);
+    switch (msg.type) {
+        case "success":
+            Swal.fire({
+                icon: 'success',
+                title: msg.title,
+                // width:'fit-content',
+                animation: true,
+                position: 'center',
+            })
+            break;
+        case "error":
+            Swal.fire({
+                icon: 'error',
+                title: msg.title,
+                // width:'fit-content',
+                animation: true,
+                position: 'center',
+                })
+                break;
+        default:
+            break;
+    }
+}

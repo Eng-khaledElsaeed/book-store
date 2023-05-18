@@ -41,26 +41,31 @@
   </style>
 </head>
 <body>
-  <h1>Add Product</h1>
-  <form action="process.php" method="post">
-    <label for="name">Product Name:</label>
-    <input type="text" id="name" name="name" required>
-    
-    <label for="description">Description:</label>
-    <input type="text" id="description" name="description" required>
-    
-    <label for="price">Price:</label>
-    <input type="text" id="price" name="price" required>
-    
-    <label for="category">Category:</label>
-    <select id="category" name="category" required>
-      <option value="">Select a category</option>
-      <option value="electronics">Electronics</option>
-      <option value="clothing">Clothing</option>
-      <option value="home">Home</option>
-    </select>
-    
-    <input type="submit" value="Add Product">
-  </form>
+  <select id="mySelect">
+    <option value="">-- Select an option --</option>
+    <option value="Option 1">Option 1</option>
+    <option value="Option 2">Option 2</option>
+    <option value="Option 3">Option 3</option>
+    <option value="Option 4">Option 4</option>
+    <option value="Option 5">Option 5</option>
+  </select>
+  
+  <script>
+    document.getElementById("mySelect").addEventListener("input", function() {
+      var input, filter, select, options, i;
+      input = this.value.toUpperCase();
+      select = document.getElementById("mySelect");
+      options = select.getElementsByTagName("option");
+      
+      for (i = 0; i < options.length; i++) {
+        if (options[i].value.toUpperCase().indexOf(input) > -1) {
+          options[i].style.display = "";
+        } else {
+          options[i].style.display = "none";
+        }
+      }
+    });
+  </script>
+  
 </body>
 </html>

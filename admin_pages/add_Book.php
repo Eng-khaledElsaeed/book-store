@@ -76,75 +76,79 @@ if(isset($_GET['timeout']) || !isset($admin_id)){
 </head>
 <body>
    <div class="dashboard_layout">
+    
     <!-- include header code  -->
     <?php include('admin_header.php'); ?>
 
     <!-- include sidenav code  -->
     <?php include('admin_sidenav.php'); ?>
 
-    <main class="main" style="padding:0px">
-        <div class="buttons">
-            <a href="add_book.php" class="btn">Add New Book</a>
-        </div>
-        <div class="main_item all_books show">
-            <div class="table">
-                <h3> Display All Books</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Book Name</th>
-                            <th>Book Category</th>
-                            <th>Book quantity</th>
-                            <th>Book Price</th>
-                            <th>status</th>
-                            <th>Book Image</th>
-                            <th>update</th>
-                            <th>delete</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        $query_2_products=mysqli_query($conn,"SELECT p.* ,c.category_name FROM products p INNER JOIN category c ON p.category_id=c.category_id");
-                        if(mysqli_num_rows($query_2_products)>0){
-                            
-                            while($row_2_products=mysqli_fetch_assoc($query_2_products)){
-                                $i=1;
-                                echo 
-                            "<tr>
-                                <td>$i</td>
-                                <td>{$row_2_products['prod_name']}</td>
-                                <td>{$row_2_products['category_name']}</td>
-                                <td>{$row_2_products['prod_quant']}</td>
-                                <td>{$row_2_products['price']}</td>
-                                <td>{$row_2_products['status']}</td>
-                                <td>{$row_2_products['prod_imag_url']}</td>
-                                <td>update</td>
-                                <td>delete</td>
-                            </tr>";
-                            $i++;
-                            }
+
+
+    <main class="main" style="padding:10px">
+        <div class="main_item products show">
+            <div class="add_products_form">
+                <h3>Add Products</h3>
+                <form action="" method="post" enctype="multipart/form-data" class="form2">
+                 
+                
+                    <label for="name">Product Name:</label>
+                    <input type="text" id="name" name="pro-name" required>
+
+                    <label for="amount">Quantity:</label>
+                    <input type="number" id="amount" name="pro-amount" required placeholder="quantity">
+
+                    <label for="price">Price:</label>
+                    <input type="number" id="price" name="pro-price" required placeholder="price">
+
+                    <label for="image">upload Image:</label>
+                    <input type="file" id="image" name="pro-image" required accept="image/*"> 
+                    <!-- (accept="image/*")-> this prevent file input to select unexpected files -->
+
+                    <label for="description">Description:</label>
+                    <input type="text" id="description" name="pro-description" required>
+
+                    
+                    
+                    <label for="category">Category:</label>
+                    <select id="category" name="pro-category" required>
+                    <option value="">Select a category</option>
+                    <?php
+                    $query_0_categ=mysqli_query($conn,"SELECT * FROM `category` ORDER BY category_name");
+                    if(mysqli_num_rows($query_0_categ) > 0){
+                        
+                        while($row_0_categ=mysqli_fetch_assoc($query_0_categ)){
+                            $cat_value=$row_0_categ["category_id"];
+                            $cat_name=$row_0_categ["category_name"];
+                            echo "<option value='{$cat_value}'>{$cat_name}</option>";
                         }
-                        ?>
-                    </tbody>
-                </table>
+                    }
+                    ?>
+                    </select>
+
+                    <label for="stock">stock name:</label>
+                    <select id="stock" name="pro-stock" required>
+                    <option value="">Select a stock</option>
+                    <?php
+                    $query_0_stock=mysqli_query($conn,"SELECT * FROM stock ORDER BY stock_name");
+                    if(mysqli_num_rows($query_0_stock) > 0){
+                        while($row_0_stock=mysqli_fetch_assoc($query_0_stock)){
+                            $stock_value=$row_0_stock["stock_id"];
+                            $stock_name=$row_0_stock["stock_name"];
+                            echo "<option value='{$stock_value}'>{$stock_name}</option>";
+                        }
+                    }
+                    ?>
+                    </select>
+                    
+                    <input type="submit" name="add-product" value="Add Product">
+                </form>
             </div>
-            <div class="table_pagnetion">
-                <a href="#">&lt;privious</a>
-                <a href="#" class="active">1</a>
-                <a href="#">2</a>
-                <a href="#">3</a>
-                <a href="#">4</a>
-                <a href="#">5</a>
-                <a href="#">6</a>
-                <a href="#">7</a>
-                <a href="#">next&gt;</a>
-            </div>
+            
         </div>
-        
     </main>
 
-    <?php include('admin_footer.php'); ?>
+ <?php include('admin_footer.php'); ?>
 
    </div>
    <script>
