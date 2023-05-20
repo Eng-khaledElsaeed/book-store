@@ -44,7 +44,17 @@ if(isset($_POST['add-product'])){
 };
 
 
-
+if(isset($_REQUEST['delete_prod_id'])){
+    $id=$_REQUEST['delete_prod_id'];
+    $sql = "DELETE FROM products WHERE prod_id = $id";
+    $query=mysqli_query($conn,$sql);
+    if ($query) {
+        $message=[
+            "type"=>"success",
+            "title"=>"Product Successfully Deleted",
+            ];
+    }    
+}
 
 //Checking if the user is logged in, if not then redirect him to login page.
 $admin_id=$_SESSION['admin_id'];
@@ -159,8 +169,8 @@ if(isset($_GET['timeout']) || !isset($admin_id)){
                                     <td>{$row_2_products['price']}</td>
                                     <td>{$row_2_products['status']}</td>
                                     <td><img src='{$row_2_products['prod_imag_url']}' alt=''></td>
-                                    <td><button type='button' id='update_btn' name='update_product' class='update_btn'>update</button></td>
-                                    <td><button type='button' id='delete_btn' name='delete_product' class='delete_btn'>delete</button></td>
+                                    <td><button type='button' id='update_btn-$prod_id' class='update_btn' data-product-id='$prod_id'><a href='update-product.php?update_prod_id=$prod_id'>update</a></button></td>
+                                    <td><button type='button' id='delete_btn-$prod_id' class='delete_btn' data-product-id='$prod_id'><a href='?delete_prod_id=$prod_id'>delete</a></button></td>
                                 </tr>";
                                 $slno++;
                             }

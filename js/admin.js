@@ -127,3 +127,13 @@ function CRUD_message(msg){
             break;
     }
 }
+
+
+// update table data
+let updatebtns=document.getElementsByClassName("update_btn");
+for (let i = 0; i < updatebtns.length; i++){
+    updatebtns[i].addEventListener('click', ()=>{
+        let id=updatebtns[i].getAttribute('data-product-id');
+        console.log(id);
+    });
+}
