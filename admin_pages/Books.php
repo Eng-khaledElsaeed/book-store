@@ -46,13 +46,20 @@ if(isset($_POST['add-product'])){
 
 if(isset($_REQUEST['delete_prod_id'])){
     $id=$_REQUEST['delete_prod_id'];
-    $sql = "DELETE FROM products WHERE prod_id = $id";
-    $query=mysqli_query($conn,$sql);
+    $query=mysqli_query($conn,"DELETE FROM products WHERE prod_id = $id");
     if ($query) {
+        
         $message=[
             "type"=>"success",
             "title"=>"Product Successfully Deleted",
-            ];
+        ];
+        $query_3_product=mysqli_query($conn,"SELECT * FROM products where prod_id=$id");
+        if(mysqli_num_rows($query_3_product)){
+            $row = mysqli_fetch_assoc($query_3_product);
+            if (file_exists($row['prod_imag_url'])) {
+                unlink($row['prod_imag_url']);
+            }
+        }
     }    
 }
 
@@ -123,19 +130,18 @@ if(isset($_GET['timeout']) || !isset($admin_id)){
                         // calculate number of pages
                         $books_query=mysqli_query($conn,"SELECT COUNT(*) as books_count FROM products");
                         while ($count_books=mysqli_fetch_assoc($books_query)){
-                            echo "<script> console.log({$count_books['books_count']});</script>";
                             $all_books=$count_books['books_count'];
                         }
-
                         $num_pages = ceil($all_books/$pagesize);
-                        echo "<script> console.log({$num_pages});</script>";
 
                         // if the page is greater than the number of pages, display the last page
                         if(isset($_REQUEST['page'])){
                             if($_REQUEST['page']>$num_pages){
                                 $curr_page=1;
                             }elseif($_REQUEST['page']<1){
-                                $curr_page=$num_pages;
+                                $curr_page=1;
+                            }elseif($_REQUEST['page']<1){
+                                $curr_page=1;
                             } else{
                                 $curr_page = $_REQUEST['page'];
                             }
@@ -169,12 +175,14 @@ if(isset($_GET['timeout']) || !isset($admin_id)){
                                     <td>{$row_2_products['price']}</td>
                                     <td>{$row_2_products['status']}</td>
                                     <td><img src='{$row_2_products['prod_imag_url']}' alt=''></td>
-                                    <td><button type='button' id='update_btn-$prod_id' class='update_btn' data-product-id='$prod_id'><a href='update-product.php?update_prod_id=$prod_id'>update</a></button></td>
-                                    <td><button type='button' id='delete_btn-$prod_id' class='delete_btn' data-product-id='$prod_id'><a href='?delete_prod_id=$prod_id'>delete</a></button></td>
+                                    <td><button type='button' id='update_btn-$prod_id' class='update_btn' data-product-id='$prod_id'>update</button></td>
+                                    <td><button type='button' id='delete_btn-$prod_id' class='delete_btn' data-product-id='$prod_id'>delete</button></td>
                                 </tr>";
                                 $slno++;
                             }
 
+                        }else{
+                            echo "<p style='text-align: center;'>No Data Found</p>";
                         }
                         ?>
                     </tbody>

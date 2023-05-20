@@ -97,10 +97,6 @@ function session_timeout(){
     });
 }
 
-(()=>{
-    session_timeout();
-
-})
 
 function CRUD_message(msg){
     console.log(msg);
@@ -125,15 +121,65 @@ function CRUD_message(msg){
                 break;
         default:
             break;
-    }
+        }
 }
 
 
 // update table data
-let updatebtns=document.getElementsByClassName("update_btn");
-for (let i = 0; i < updatebtns.length; i++){
-    updatebtns[i].addEventListener('click', ()=>{
-        let id=updatebtns[i].getAttribute('data-product-id');
-        console.log(id);
+function update_product(){
+    let updatebtns=document.getElementsByClassName("update_btn");
+    for (let i = 0; i < updatebtns.length; i++){
+            updatebtns[i].addEventListener('click', ()=>{
+            let id=updatebtns[i].getAttribute('data-product-id');
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't to update product ID:#"+id+"!",
+                icon: 'warning',
+                width: 'fit-content',
+                padding: '1em',
+                position:'center',
+           
+                showCancelButton: true,
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'confirm',
+                confirmButtonColor: '#3085d6',
+              }).then((result) => {
+                  if (result.isConfirmed) {
+                    window.location.href="update-product.php?update_prod_id="+id;
+                }
+              })
+        });
+    }
+}
+
+function delete_product(){
+    let deletebtns=document.getElementsByClassName('delete_btn');
+    for (let i = 0; i < deletebtns.length; i++){
+        deletebtns[i].addEventListener('click', ()=>{
+        let id=deletebtns[i].getAttribute('data-product-id');
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't to delete product ID:#"+id+"!",
+            icon: 'warning',
+            width: 'fit-content',
+            padding: '1em',
+            position:'center',
+            showCancelButton: true,
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'confirm',
+            confirmButtonColor: '#3085d6',
+          }).then((result) => {
+              if (result.isConfirmed) {
+                window.location.href='?delete_prod_id='+id;
+            }
+          })
     });
 }
+};
+
+(()=>{
+    session_timeout();
+});
+
+delete_product();
+update_product();

@@ -49,23 +49,7 @@
     <option value="Option 4">Option 4</option>
     <option value="Option 5">Option 5</option>
   </select>
-  
-  <script>
-    document.getElementById("mySelect").addEventListener("input", function() {
-      var input, filter, select, options, i;
-      input = this.value.toUpperCase();
-      select = document.getElementById("mySelect");
-      options = select.getElementsByTagName("option");
-      
-      for (i = 0; i < options.length; i++) {
-        if (options[i].value.toUpperCase().indexOf(input) > -1) {
-          options[i].style.display = "";
-        } else {
-          options[i].style.display = "none";
-        }
-      }
-    });
-  </script>
+  <td><button type='button' id='update_btn-$prod_id' class='update_btn' data-product-id='$prod_id' ><a href='update-product.php?update_prod_id=$prod_id'>update</a></button></td>
   
 </body>
 </html>

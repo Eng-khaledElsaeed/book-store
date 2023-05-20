@@ -18,6 +18,7 @@ if(isset($_POST['update-product'])){
     $book_category_id=$_POST['pro-category'];
     $book_update_id=$_SESSION['admin_id'];
     $book_stock_id=$_POST['pro-stock'];
+
     if($_FILES["pro-image"]["error"] == UPLOAD_ERR_OK){
         // Specify the directory where you want to save the uploaded image
         $targetDir = "../uploaded_img/";
@@ -31,7 +32,7 @@ if(isset($_POST['update-product'])){
     }
 
     $sql = "UPDATE products SET prod_name='$book_name' ,prod_desc='$book_desc' ,prod_quant='$book_amount' ,price='$book_price' 
-    ,status='$status' ,category_id='$book_category_id' ,user_id='$book_added_id' ,stock_id='$book_stock_id' ,prod_imag_url='$prod_image_url' 
+    ,status='$status' ,category_id='$book_category_id' ,user_id='$book_update_id' ,stock_id='$book_stock_id' ,prod_imag_url='$prod_image_url' 
     WHERE prod_id='$prod_id'";
     $query=mysqli_query($conn,$sql);
     if ($query) {
@@ -45,7 +46,7 @@ if(isset($_POST['update-product'])){
     }else{
         $message=[
             "type"=>"error",
-            "title"=>"Product Failed To Add please call adminstrator",
+            "title"=>"Product Failed To update please call adminstrator",
         ];
     }
 }

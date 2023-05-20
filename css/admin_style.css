@@ -1,3 +1,4 @@
+
 /* ----------------------------- Start dashboard icon --------------------- */
 
 .dashboard_layout{
@@ -20,6 +21,7 @@ transition: all .3s linear;
 }
 .dashboard_layout .footer {
     grid-area: footer;
+    
 }
 .dashboard_layout .header{
     grid-area: header;
@@ -492,7 +494,7 @@ display: none;
     background: #2cf087;
     gap: 10px;
 }
-.all_books .table_pagnetion a{
+.all_books a{
     color: #fff;
     text-decoration: none;
     padding:5px ;
