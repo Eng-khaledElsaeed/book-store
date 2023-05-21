@@ -102,14 +102,31 @@ function CRUD_message(msg){
     console.log(msg);
     switch (msg.type) {
         case "success":
-            Swal.fire({
-                icon: 'success',
-                title: msg.title,
-                // width:'fit-content',
-                animation: true,
-                position: 'center',
-            })
-            break;
+            if(msg.page=="same_window"){
+                Swal.fire({
+                    icon: 'success',
+                    title: msg.title,
+                    animation: true,
+                    position: 'center',
+                }).then((result)=>{
+                    if(result.isConfirmed){
+                        window.location.href = window.location.href.split('?').shift();
+                    }
+                });
+            }else{
+                Swal.fire({
+                    icon: 'success',
+                    title: msg.title,
+                    animation: true,
+                    position: 'center',
+                }).then((result)=>{
+                    if(result.isConfirmed){
+                        window.location.href = msg.page;
+                    }
+                });
+            }
+            
+                break;
         case "error":
             Swal.fire({
                 icon: 'error',
@@ -117,7 +134,7 @@ function CRUD_message(msg){
                 // width:'fit-content',
                 animation: true,
                 position: 'center',
-                })
+                });
                 break;
         default:
             break;

@@ -21,6 +21,7 @@ if(isset($_POST['add-product'])){
        $message=[
         "type"=>"error",
         "title"=>"Error: " . $_FILES["pro-image"]["error"],
+        "page"=>"same_window",
        ];
     }
 
@@ -32,6 +33,7 @@ if(isset($_POST['add-product'])){
         $message=[
             "type"=>"success",
             "title"=>"Product Successfully Added",
+            "page"=>"Books.php",
         ];
         // Move the uploaded file to the target path 
         move_uploaded_file($_FILES["pro-image"]["tmp_name"], $prod_image_url);
@@ -39,6 +41,7 @@ if(isset($_POST['add-product'])){
         $message=[
             "type"=>"error",
             "title"=>"Product Failed To Add please call adminstrator",
+            "page"=>"same_window",
         ];
     }
 };

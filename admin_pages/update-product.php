@@ -9,6 +9,7 @@ if(isset($_GET['update_prod_id'])){
     $row=mysqli_fetch_array($result);
 }
 
+
 if(isset($_POST['update-product'])){
     $book_name=mysqli_real_escape_string($conn,$_POST['pro-name']);
     $book_desc=$_POST['pro-description'];
@@ -28,28 +29,40 @@ if(isset($_POST['update-product'])){
        $message=[
         "type"=>"error",
         "title"=>"Error: " . $_FILES["pro-image"]["error"],
+        "page"=>"same_window",
        ];
     }
 
-    $sql = "UPDATE products SET prod_name='$book_name' ,prod_desc='$book_desc' ,prod_quant='$book_amount' ,price='$book_price' 
-    ,status='$status' ,category_id='$book_category_id' ,user_id='$book_update_id' ,stock_id='$book_stock_id' ,prod_imag_url='$prod_image_url' 
-    WHERE prod_id='$prod_id'";
-    $query=mysqli_query($conn,$sql);
-    if ($query) {
-        // echo "New record created successfully";
-        $message=[
-            "type"=>"success",
-            "title"=>"Product Successfully updated",
-        ];
-        // Move the uploaded file to the target path 
-        move_uploaded_file($_FILES["pro-image"]["tmp_name"], $prod_image_url);
-    }else{
-        $message=[
-            "type"=>"error",
-            "title"=>"Product Failed To update please call adminstrator",
-        ];
+
+
+    // Move the uploaded file to the target path
+    if(move_uploaded_file($_FILES["pro-image"]["tmp_name"], $prod_image_url)){
+        // delete image
+        unlink($row['prod_imag_url']);
+        $sql = "UPDATE products SET prod_name='$book_name' ,prod_desc='$book_desc' ,prod_quant='$book_amount' ,price='$book_price' 
+        ,status='$status' ,category_id='$book_category_id' ,user_id='$book_update_id' ,stock_id='$book_stock_id' ,prod_imag_url='$prod_image_url' 
+        WHERE prod_id='$prod_id'";
+        $query=mysqli_query($conn,$sql);
+        if ($query) {
+            // echo "New record created successfully";
+            $message=[
+                "type"=>"success",
+                "title"=>"Product Successfully updated",
+                "page"=>"Books.php",
+            ];
+        }else{
+            $message=[
+                "type"=>"error",
+                "title"=>"Product Failed To update please call adminstrator",
+                "page"=>"same_window",
+            ];
+        }
     }
+
 }
+
+
+
 //Checking if the user is logged in, if not then redirect him to login page.
 $admin_id=$_SESSION['admin_id'];
 if(isset($_GET['timeout']) || !isset($admin_id)){

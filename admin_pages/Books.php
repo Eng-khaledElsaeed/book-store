@@ -21,6 +21,7 @@ if(isset($_POST['add-product'])){
        $message=[
         "type"=>"error",
         "title"=>"Error: " . $_FILES["pro-image"]["error"],
+        "page"=>"same_window",
        ];
     }
 
@@ -32,6 +33,7 @@ if(isset($_POST['add-product'])){
         $message=[
             "type"=>"success",
             "title"=>"Product Successfully Added",
+            "page"=>"Book.php",
         ];
         // Move the uploaded file to the target path 
         move_uploaded_file($_FILES["pro-image"]["tmp_name"], $prod_image_url);
@@ -39,6 +41,7 @@ if(isset($_POST['add-product'])){
         $message=[
             "type"=>"error",
             "title"=>"Product Failed To Add please call adminstrator",
+            "page"=>"same_window",
         ];
     }
 };
@@ -46,22 +49,24 @@ if(isset($_POST['add-product'])){
 
 if(isset($_REQUEST['delete_prod_id'])){
     $id=$_REQUEST['delete_prod_id'];
-    $query=mysqli_query($conn,"DELETE FROM products WHERE prod_id = $id");
-    if ($query) {
-        
-        $message=[
-            "type"=>"success",
-            "title"=>"Product Successfully Deleted",
-        ];
-        $query_3_product=mysqli_query($conn,"SELECT * FROM products where prod_id=$id");
-        if(mysqli_num_rows($query_3_product)){
-            $row = mysqli_fetch_assoc($query_3_product);
-            if (file_exists($row['prod_imag_url'])) {
-                unlink($row['prod_imag_url']);
-            }
+    
+    $query_3_product=mysqli_query($conn,"SELECT * FROM products where prod_id=$id");
+    if(mysqli_num_rows($query_3_product)){
+        $row = mysqli_fetch_assoc($query_3_product);
+        if (file_exists($row['prod_imag_url'])) {
+            unlink($row['prod_imag_url']);
         }
-    }    
-}
+        $query=mysqli_query($conn,"DELETE FROM products WHERE prod_id = $id");
+        if ($query) {
+            $message=[
+                "type"=>"success",
+                "title"=>"Product Successfully Deleted",
+                "page"=>"same_window",
+            ];
+        }
+
+    }
+}    
 
 //Checking if the user is logged in, if not then redirect him to login page.
 $admin_id=$_SESSION['admin_id'];
@@ -135,14 +140,17 @@ if(isset($_GET['timeout']) || !isset($admin_id)){
                         $num_pages = ceil($all_books/$pagesize);
 
                         // if the page is greater than the number of pages, display the last page
+                        $next_page_disable=false;
+                        $privious_page_disable=false;
+                        
                         if(isset($_REQUEST['page'])){
-                            if($_REQUEST['page']>$num_pages){
+                            if($_REQUEST['page']>=$num_pages ){
+                                $curr_page=$num_pages;
+                                $next_page_disable=true;
+                            }elseif($_REQUEST['page']<=1){
                                 $curr_page=1;
-                            }elseif($_REQUEST['page']<1){
-                                $curr_page=1;
-                            }elseif($_REQUEST['page']<1){
-                                $curr_page=1;
-                            } else{
+                                $privious_page_disable=true;
+                            }else{
                                 $curr_page = $_REQUEST['page'];
                             }
                         }
@@ -190,12 +198,25 @@ if(isset($_GET['timeout']) || !isset($admin_id)){
             </div>
             <div class="table_pagnetion">
                 <?php
+                if($privious_page_disable){
+                    echo "<span style='color: #878787;cursor: auto;'>&lt; privious</span>";
+                }else{
+                    echo "<a href='?page=$privious_page & per-pages=$num_pages'>&lt; privious</a>";
+                };
                 
-                echo "<a href='?page=$privious_page & per-pages=$num_pages'>&lt;privious</a>";
                 for($i=1;$i<=$num_pages;$i++){
-                    echo "<a href='?page=$i& per-pages=$num_pages'>$i</a>";
-                }
-                echo "<a href='?page=$next_page & per-pages=$num_pages'>next&gt;</a>";
+                    if($i==$curr_page){
+                        echo "<span style='color:white;background: #878787;padding: 5px;border-radius: 50%;font-size: 17px;'>$i</span>";
+                    }else{
+                        echo "<a href='?page=$i& per-pages=$num_pages'>$i</a>";
+                    }
+                };
+                
+                if($next_page_disable){
+                    echo "<span style='color: #878787;cursor: auto;'>next &gt;</span>";
+                }else{
+                    echo "<a href='?page=$next_page & per-pages=$num_pages'>next&gt;</a>";
+                };
                 ?>
             </div>
         </div>
