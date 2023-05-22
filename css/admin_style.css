@@ -429,7 +429,8 @@ display: none;
     border-radius: 10px;
 }
 
-.main .all_books{
+.main .all_books,
+.main .category{
     position: relative;
     background-color: #f5f5f5;
     width:95%;
@@ -440,7 +441,8 @@ display: none;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     overflow: hidden;
 }
-.all_books .table_head h3{
+.all_books .table_head h3,
+.category .table_head h3{
     color: #5a5a5a;
     font-size: 20px;
     font-weight: 500;
@@ -448,11 +450,12 @@ display: none;
     padding: 7px 0;
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }
-.main .all_books .table{
+.main .all_books .table,
+.main .category .table{
     width: 100%;
-    padding: 10px 12px;
+    padding: 20px 10px;
     text-align: center;
-    height: 86%;
+    height: 85%;
     overflow: auto;
 }
 
@@ -466,7 +469,8 @@ display: none;
 .all_books .table td:hover > img{
     transform: scale(2);
 }
-.all_books .table td > button.update_btn{
+.all_books .table td > button.update_btn,
+.category .table td > button.update_btn{
     background-color: #2cf087;
     color: #fff;
     border: none;
@@ -474,7 +478,8 @@ display: none;
     border-radius: 5px;
     cursor: pointer;
 }
-.all_books .table td > button.delete_btn{
+.all_books .table td > button.delete_btn,
+.category .table td > button.delete_btn{
     background-color: #ff0000;
     color: #fff;
     border: none;
@@ -482,7 +487,8 @@ display: none;
     border-radius: 5px;
     cursor: pointer;
 }
-.main .all_books .table_pagnetion{
+.main .all_books .table_pagnetion,
+.main .category .table_pagnetion {
     position: absolute;
     display: flex;
     align-items: center;
@@ -494,14 +500,11 @@ display: none;
     background: #2cf087;
     gap: 10px;
 }
-.all_books a{
+.all_books a,
+.category a {
     color: #fff;
     text-decoration: none;
     padding:5px ;
-}
-.all_books .table_pagnetion a.active{
-    background-color: #a3a3a3;
-    border-radius: 50%;
 }
 
 th{
@@ -575,4 +578,8 @@ background-color: #45a049;
 /* -------------add new product form ---------------- */
 
 /*---------------------------------------- end product page style --------------------------------- */
+
+/* ------------------------------------start category section style -------------------------------- */
+
+/* ------------------------------------end category section style -------------------------------- */
 
