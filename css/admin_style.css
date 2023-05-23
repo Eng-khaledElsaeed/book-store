@@ -419,7 +419,7 @@ display: none;
     margin: 10px 0;
 }
 .button .btn{
-    width: 150px;
+    width: fit-content;
     background-color:#4CAF50;
     color: #fff;
     text-align: center;
@@ -458,6 +458,14 @@ display: none;
     height: 85%;
     overflow: auto;
 }
+.table .search input[type="text"]{
+    width: 50%;
+    height: 35px;
+    border-radius: 10px;
+    margin: 5px 0;
+    box-shadow: 4px 4px 5px rgba(0,0,0,0.2);
+    padding: 3px 10px;
+}
 
 .all_books .table td > img{
     width: 40px;
@@ -492,13 +500,24 @@ display: none;
     position: absolute;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
     width: 100%;
     /* padding: 10px; */
     bottom: 0px;
     padding: 10px;
     background: #2cf087;
-    gap: 10px;
+    gap: 20px;
+}
+.table_pagnetion .paginations_controles{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.table_pagnetion .numper_of_pages{
+    color: #8b8989;
+    font-size: 15px;
+    text-align: center;
+
 }
 .all_books a,
 .category a {

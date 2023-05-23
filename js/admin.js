@@ -200,3 +200,18 @@ function delete_product(){
 
 delete_product();
 update_product();
+
+
+
+function search(val) {
+    if (val.trim() !== '') {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            console.log(xhr.responseText);
+        }
+        };
+        xhr.open('post', 'category.php?search_val='+ val, true);
+        xhr.send();
+    }
+}
