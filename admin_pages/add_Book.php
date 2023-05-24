@@ -3,7 +3,6 @@ include '../database/config.php';
 //Beginning the session.
 session_start();
 if(isset($_POST['add-product'])){
-    
     $book_name=mysqli_real_escape_string($conn,$_POST['pro-name']);
     $book_desc=$_POST['pro-description'];
     $book_amount=$_POST['pro-amount'];
@@ -46,9 +45,6 @@ if(isset($_POST['add-product'])){
     }
 };
 
-
-
-
 //Checking if the user is logged in, if not then redirect him to login page.
 $admin_id=$_SESSION['admin_id'];
 if(isset($_GET['timeout']) || !isset($admin_id)){
@@ -56,8 +52,7 @@ if(isset($_GET['timeout']) || !isset($admin_id)){
     session_unset();
     session_destroy(); 
     header("location:../sign_in.php");
-}
-
+};
 ?>
 
 <!DOCTYPE html>
@@ -74,27 +69,20 @@ if(isset($_GET['timeout']) || !isset($admin_id)){
     <!-- main css file -->
     <link rel="stylesheet" href="../css/side_config.css">
     <link rel="stylesheet" href="../css/admin_style.css">
-    
-    
 </head>
 <body>
    <div class="dashboard_layout">
-    
     <!-- include header code  -->
     <?php include('admin_header.php'); ?>
-
     <!-- include sidenav code  -->
     <?php include('admin_sidenav.php'); ?>
 
-
-
     <main class="main" style="padding:10px">
-        <div class="main_item products show">
-            <div class="add_products_form">
+        <div class="main_item book_forms show" data-content="item3">
+            <div class="add_form">
                 <h3>Add Products</h3>
                 <form action="" method="post" enctype="multipart/form-data" class="form2">
                  
-                
                     <label for="name">Product Name:</label>
                     <input type="text" id="name" name="pro-name" required>
 
@@ -111,8 +99,6 @@ if(isset($_GET['timeout']) || !isset($admin_id)){
                     <label for="description">Description:</label>
                     <input type="text" id="description" name="pro-description" required>
 
-                    
-                    
                     <label for="category">Category:</label>
                     <select id="category" name="pro-category" required>
                     <option value="">Select a category</option>
@@ -125,7 +111,7 @@ if(isset($_GET['timeout']) || !isset($admin_id)){
                             $cat_name=$row_0_categ["category_name"];
                             echo "<option value='{$cat_value}'>{$cat_name}</option>";
                         }
-                    }
+                    };
                     ?>
                     </select>
 
@@ -140,7 +126,7 @@ if(isset($_GET['timeout']) || !isset($admin_id)){
                             $stock_name=$row_0_stock["stock_name"];
                             echo "<option value='{$stock_value}'>{$stock_name}</option>";
                         }
-                    }
+                    };
                     ?>
                     </select>
                     
@@ -150,13 +136,8 @@ if(isset($_GET['timeout']) || !isset($admin_id)){
             
         </div>
     </main>
-
  <?php include('admin_footer.php'); ?>
-
    </div>
-   <script>
-     
-    </script>
     <!-- main javascript file  -->
     <script src="https://kit.fontawesome.com/9e0e68f55e.js" crossorigin="anonymous"></script>
     <!-- sweetalert -->

@@ -23,7 +23,7 @@ sidebar_logo.addEventListener("click",()=>{
 let main_item= document.querySelector(".main_item");
 let side_item= document.querySelectorAll(".side_item");
 side_item.forEach(element => {
-    if(main_item.classList.contains(element.dataset.content)){
+    if(element.dataset.item===main_item.dataset.content) {
         element.classList.add("active")  
     }
 });
@@ -144,13 +144,14 @@ function CRUD_message(msg){
 
 // update table data
 function update_product(){
-    let updatebtns=document.getElementsByClassName("update_btn");
+    let updatebtns=document.getElementsByClassName('update_btn');
     for (let i = 0; i < updatebtns.length; i++){
             updatebtns[i].addEventListener('click', ()=>{
-            let id=updatebtns[i].getAttribute('data-product-id');
+            let id=updatebtns[i].getAttribute('data-id');
+            let value=updatebtns[i].getAttribute('data-value');
             Swal.fire({
                 title: 'Are you sure?',
-                text: "You won't to update product ID:#"+id+"!",
+                text: "You won't to update "+value+" ID:#"+id+"!",
                 icon: 'warning',
                 width: 'fit-content',
                 padding: '1em',
@@ -162,21 +163,22 @@ function update_product(){
                 confirmButtonColor: '#3085d6',
               }).then((result) => {
                   if (result.isConfirmed) {
-                    window.location.href="update-product.php?update_prod_id="+id;
+                    window.location.href="update-"+value+".php?update_id="+id;
                 }
               })
         });
     }
-}
+};
 
 function delete_product(){
     let deletebtns=document.getElementsByClassName('delete_btn');
     for (let i = 0; i < deletebtns.length; i++){
         deletebtns[i].addEventListener('click', ()=>{
-        let id=deletebtns[i].getAttribute('data-product-id');
+        let id=deletebtns[i].getAttribute('data-id');
+        let value=deletebtns[i].getAttribute('data-value');
         Swal.fire({
             title: 'Are you sure?',
-            text: "You won't to delete product ID:#"+id+"!",
+            text: "You won't to delete "+value+" ID:#"+id+"!",
             icon: 'warning',
             width: 'fit-content',
             padding: '1em',
@@ -187,7 +189,7 @@ function delete_product(){
             confirmButtonColor: '#3085d6',
           }).then((result) => {
               if (result.isConfirmed) {
-                window.location.href='?delete_prod_id='+id;
+                window.location.href='?delete_id='+id;
             }
           })
     });
@@ -203,15 +205,17 @@ update_product();
 
 
 
-function search(val) {
-    if (val.trim() !== '') {
-        var xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function() {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-            console.log(xhr.responseText);
-        }
+function search(value) {
+    let catogary_table=document.getElementById('catogary_table');
+    console.log(value);
+    if (value.trim() !== '') {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+               console.log(xhttp.responseText);
+            }
         };
-        xhr.open('post', 'category.php?search_val='+ val, true);
-        xhr.send();
+        xhttp.open("GET", "category.php?search_val=" + value, true);
+        xhttp.send();
     }
 }

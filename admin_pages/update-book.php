@@ -2,8 +2,8 @@
 include '../database/config.php';
 //Beginning the session.
 session_start();
-if(isset($_GET['update_prod_id'])){
-    $prod_id=$_GET['update_prod_id'];
+if(isset($_GET['update_id'])){
+    $prod_id=$_GET['update_id'];
     $query="SELECT * FROM products WHERE prod_id='$prod_id'";
     $result=mysqli_query($conn,$query);
     $row=mysqli_fetch_array($result);
@@ -102,8 +102,8 @@ if(isset($_GET['timeout']) || !isset($admin_id)){
 
 
     <main class="main" style="padding:10px">
-        <div class="main_item products show">
-            <div class="add_products_form">
+        <div class="main_item book_forms show" data-content="item3">
+            <div class="update_form">
                 <h3>update Product ID:# <?php echo $prod_id ?></h3>
                 <form action="" method="post" enctype="multipart/form-data" class="form2">
 

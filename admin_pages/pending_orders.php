@@ -30,17 +30,13 @@ if(isset($_GET['timeout']) || !isset($admin_id)){
 </head>
 <body>
    <div class="dashboard_layout">
-    
     <!-- include header code  -->
     <?php include('admin_header.php'); ?>
-
     <!-- include sidenav code  -->
     <?php include('admin_sidenav.php'); ?>
 
-
-
     <main class="main">
-        <div class="main_item pending_orders show">
+        <div class="main_item pending_orders show" data-content="item10">
             pending_orders
         </div>
     </main>

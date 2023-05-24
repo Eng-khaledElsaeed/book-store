@@ -30,17 +30,13 @@ if(isset($_GET['timeout']) || !isset($admin_id)){
 </head>
 <body>
    <div class="dashboard_layout">
-    
     <!-- include header code  -->
     <?php include('admin_header.php'); ?>
-
     <!-- include sidenav code  -->
     <?php include('admin_sidenav.php'); ?>
 
-
-
     <main class="main">
-        <div class="main_item dashboart show">
+        <div class="main_item dashboart show" data-content="item1">
 
             <div class="main-header">
                 <div class="main-header__heading">Hello User</div>
