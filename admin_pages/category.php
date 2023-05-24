@@ -51,54 +51,53 @@ if(isset($_GET['timeout']) || !isset($admin_id)){
 </head>
 <body>
    <div class="dashboard_layout">
-    
     <!-- include header code  -->
     <?php include('admin_header.php'); ?>
-
     <!-- include sidenav code  -->
     <?php include('admin_sidenav.php'); ?>
-
-
 
     <main class="main" style="padding:0px" >
         <div class="button">
             <a href="add_category.php" class="btn">Add New category</a>
         </div>
         <div class="main_item all_category show" data-content="item4">
+            
             <div class="table_head">
                 <h3> Display All categories</h3>
             </div>
-            <div class="table">
-                <div class="search">
-                    <form action="" method="POST">
-                        <input type="text" name="search_category" id="search_category" placeholder="type your search..." onkeyup="search(this.value);">
-                    </form>
-                </div>
-                <table id="catogary_table">
-                    <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>category Name</th>
-                            <th>category description</th>
-                            <th>category status</th>
-                            <th>Num Books</th>
-                            <th>update</th>
-                            <th>delete</th>
-                        </tr>
-                    </thead>
-
-
-                    <tbody>
-                        <?php
+            <div class="table">      
+            <table>
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>category Name</th>
+                        <th>category description</th>
+                        <th>category status</th>
+                        <th>Num Books</th>
+                        <th>update</th>
+                        <th>delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
                         // Records per page is set to 10
                         $pagesize = 10;      
                         $start_rec =0;
-                        $condition=TRUE;
-                        // calculate number of pages
-                        $categories_query=mysqli_query($conn,"SELECT COUNT(*) as categories_count FROM category");
+                        
+                        if(isset($_GET['search_category'])){
+                            $search_category =$_REQUEST['search_category'];
+                        }else{
+                            $search_category = "";
+                        };
+
+                        $condition="category_name LIKE '%$search_category%' OR category_id LIKE '%$search_category%' OR category_desc LIKE '%$search_category%' OR category_status LIKE '%$search_category%'";
+                        $categories_query=mysqli_query($conn,"SELECT COUNT(*) as categories_count FROM category WHERE $condition");
+
                         while ($count_categories=mysqli_fetch_assoc($categories_query)){
                             $all_categories=$count_categories['categories_count'];
-                        }
+                        };
+
+                        // calculate number of pages
                         $num_pages = ceil($all_categories/$pagesize);
                         // if the page is greater than the number of pages, display the last page
                         $next_page_disable=false;
@@ -116,7 +115,8 @@ if(isset($_GET['timeout']) || !isset($admin_id)){
                         }
                         else{
                             $curr_page = 1;
-                        }
+                        };
+
                         $privious_page=$curr_page-1;
                         $next_page=$curr_page+1;
                         // Calculating the starting record number
@@ -124,13 +124,14 @@ if(isset($_GET['timeout']) || !isset($admin_id)){
                         // Content of the table
                         $slno = $start_rec + 1;     
                         $query_1_categories=mysqli_query($conn,"SELECT * FROM category WHERE $condition LIMIT $start_rec, $pagesize");
+
                         if(mysqli_num_rows($query_1_categories)>0){
                             while($row_1_categories=mysqli_fetch_assoc($query_1_categories)){
                                 $query_5_products=mysqli_query($conn,"SELECT COUNT(*) AS count_products_of_category FROM products WHERE category_id={$row_1_categories['category_id']}");
                                 while($row_5_products=mysqli_fetch_assoc($query_5_products)){
                                     $count_products_of_category=$row_5_products['count_products_of_category'];
                                 };
-                               $category_id=$row_1_categories['category_id'];
+                                $category_id=$row_1_categories['category_id'];
                                 echo 
                                 "<tr id='row-$category_id'>
                                     <td>$slno</td>
@@ -145,45 +146,44 @@ if(isset($_GET['timeout']) || !isset($admin_id)){
                             }
                         }else{
                             echo "<p style='text-align: center;'>No Data Found</p>";
-                        }
-                        ?>
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="table_pagnetion">
-                <div></div>
-                <div class="paginations_controles">
-                    <?php
-                        $start = max(1, $curr_page - 5);
-                        $end = min($num_pages, $curr_page + 5);
-
-                        if ($privious_page_disable) {
-                            echo "<span style='color: #878787;cursor: auto;'>&lt; previous</span>";
-                        } else {
-                            echo "<a href='?page=$privious_page&per-pages=$num_pages&'>&lt; previous</a>";
-                        };
-
-                        for ($i = $start; $i <= $end; $i++) {
-                            if ($i == $curr_page) {
-                                echo "<span style='color:white;background: #878787;padding: 5px;border-radius: 50%;font-size: 17px;'>$i</span>";
-                            } else {
-                                echo "<a href='?page=$i&per-pages=$num_pages&'>$i</a>";
-                            }
-                        };
-
-                        if ($next_page_disable) {
-                            echo "<span style='color: #878787;cursor: auto;'>next &gt;</span>";
-                        } else {
-                            echo "<a href='?page=$next_page&per-pages=$num_pages&'>next&gt;</a>";
                         };
                     ?>
-                </div>
-                <div class="numper_of_pages">
-                    <span> <?php echo "NO pages: ".$num_pages; ?></span>
-                </div>
-            </div>
+                    <div class="table_pagnetion">
+                        <div></div>
+                        <div class="paginations_controles">
+                            <?php
+                                $start = max(1, $curr_page - 5);
+                                $end = min($num_pages, $curr_page + 5);
 
+                                if ($privious_page_disable) {
+                                    echo "<span style='color: #878787;cursor: auto;'>&lt; previous</span>";
+                                } else {
+                                    echo "<a href='?page=$privious_page&per-pages=$num_pages'>&lt; previous</a>";
+                                };
+
+                                for ($i = $start; $i <= $end; $i++) {
+                                    if ($i == $curr_page) {
+                                        echo "<span style='color:white;background: #878787;padding: 5px;border-radius: 50%;font-size: 17px;'>$i</span>";
+                                    } else {
+                                        echo "<a href='?page=$i&per-pages=$num_pages'>$i</a>";
+                                    }
+                                };
+
+                                if ($next_page_disable) {
+                                    echo "<span style='color: #878787;cursor: auto;'>next &gt;</span>";
+                                } else {
+                                    echo "<a href='?page=$next_page&per-pages=$num_pages'>next&gt;</a>";
+                                };
+                            ?>
+                        </div>
+                        <div class="numper_of_pages">
+                            <span> <?php echo "NO pages: ".$num_pages; ?></span>
+                        </div>
+                    </div>
+                        
+                </tbody>
+            </table>
+        </div>
         </div>
     </main>
 

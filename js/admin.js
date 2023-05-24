@@ -205,17 +205,3 @@ update_product();
 
 
 
-function search(value) {
-    let catogary_table=document.getElementById('catogary_table');
-    console.log(value);
-    if (value.trim() !== '') {
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-               console.log(xhttp.responseText);
-            }
-        };
-        xhttp.open("GET", "category.php?search_val=" + value, true);
-        xhttp.send();
-    }
-}
