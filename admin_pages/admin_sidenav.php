@@ -37,9 +37,9 @@
             <i class="fa-solid fa-comment"></i>
             <p>chatting</p> 
         </a>
-        <a class="side_item " data-item="item9" href="pending_accounts.php">
+        <a class="side_item " data-item="item9" href="admin_accounts.php">
             <i class="fa-solid fa-business-time"></i>
-            <p>pending accounts</p> 
+            <p>Admin accounts</p> 
         </a>
         <a class="side_item " data-item="item10" href="pending_orders.php">
             <i class="fa-solid fa-business-time"></i>

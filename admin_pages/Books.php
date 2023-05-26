@@ -16,7 +16,13 @@ if(isset($_REQUEST['delete_id'])){
         if ($query) {
             $message=[
                 "type"=>"success",
-                "title"=>"Product Successfully Deleted",
+                "title"=>"Book Successfully Deleted",
+                "page"=>"same_window",
+            ];
+        }else{
+            $message=[
+                "type"=>"error",
+                "title"=>"book unable Delete",
                 "page"=>"same_window",
             ];
         }
@@ -62,7 +68,7 @@ if(isset($_GET['timeout']) || !isset($admin_id)){
         <div class="button">
             <a href="add_book.php" class="btn">Add New Book</a>
         </div>
-        <div class="main_item all_books show" data-content="item3">
+        <div class="main_item all_books basic_table show" data-content="item3">
             <div class="table_head">
                 <h3> Display All Books</h3>
             </div>
@@ -191,9 +197,6 @@ if(isset($_GET['timeout']) || !isset($admin_id)){
     <?php include('admin_footer.php'); ?>
 
    </div>
-   <script>
-     
-    </script>
     <!-- main javascript file  -->
     <script src="https://kit.fontawesome.com/9e0e68f55e.js" crossorigin="anonymous"></script>
     <!-- sweetalert -->

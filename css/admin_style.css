@@ -431,8 +431,8 @@ display: none;
     border-radius: 10px;
 }
 
-.main .all_books,
-.main .all_category{
+
+.main .basic_table{
     position: relative;
     background-color: #f5f5f5;
     width:95%;
@@ -443,8 +443,8 @@ display: none;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     overflow: hidden;
 }
-.all_books .table_head h3,
-.all_category .table_head h3{
+
+.basic_table .table_head h3{
     color: #5a5a5a;
     font-size: 20px;
     font-weight: 500;
@@ -452,8 +452,8 @@ display: none;
     padding: 7px 0;
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }
-.main .all_books .table,
-.main .all_category .table{
+
+.main .basic_table .table{
     width: 100%;
     padding: 20px 10px;
     text-align: center;
@@ -471,8 +471,8 @@ display: none;
 .all_books .table td:hover > img{
     transform: scale(2);
 }
-.all_books .table td > button.update_btn,
-.all_category .table td > button.update_btn{
+
+.basic_table .table td > button.update_btn{
     background-color: #2cf087;
     color: #fff;
     border: none;
@@ -480,8 +480,8 @@ display: none;
     border-radius: 5px;
     cursor: pointer;
 }
-.all_books .table td > button.delete_btn,
-.all_category .table td > button.delete_btn{
+
+.basic_table .table td > button.delete_btn{
     background-color: #ff0000;
     color: #fff;
     border: none;
@@ -489,8 +489,8 @@ display: none;
     border-radius: 5px;
     cursor: pointer;
 }
-.main .all_books .table_pagnetion,
-.main .all_category .table_pagnetion {
+
+.main .basic_table .table_pagnetion{
     position: absolute;
     display: flex;
     align-items: center;
@@ -513,8 +513,8 @@ display: none;
     text-align: center;
 
 }
-.all_books a,
-.all_category a {
+
+.basic_table a{
     color: #fff;
     text-decoration: none;
     padding:5px ;
