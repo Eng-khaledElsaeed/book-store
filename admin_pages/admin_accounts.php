@@ -66,8 +66,10 @@ if(isset($_GET['timeout']) || !isset($admin_id)){
     <?php include('admin_sidenav.php'); ?>
 
     <main class="main" style="padding:0px;">
-
-        <div class="main_item pending_accounts basic_table show" data-content="item9" style="margin:30px auto;">
+        <div class="button">
+            <a href="add_admin.php" class="btn">Add New admin</a>
+        </div>
+        <div class="main_item pending_accounts basic_table show" data-content="item9" style="margin:10px auto;">
             <div class="table_head">
                 <h3>Admin Accounts</h3>
             </div>

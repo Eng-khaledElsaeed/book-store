@@ -62,9 +62,10 @@ if(isset($_GET['timeout']) || !isset($admin_id)){
     <!-- include sidenav code  -->
     <?php include('admin_sidenav.php'); ?>
     <main class="main">
+        
         <div class="main_item acoounts basic_table show" data-content="item2" style="margin:30px auto;">
             <div class="table_head">
-                <h3>Admin Accounts</h3>
+                <h3>User Accounts</h3>
             </div>
             <div class="table">    
             <table>
