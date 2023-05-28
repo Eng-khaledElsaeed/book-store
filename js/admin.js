@@ -204,4 +204,18 @@ delete_product();
 update_product();
 
 
+// let search_value=document.getElementById("search");
+// let category=document.getElementById("category_table");
+// search_value.addEventListener('keyup', ()=>{
+//     let search_value_value=search_value.value;
+//       let xhr=new XMLHttpRequest();
+//       xhr.onreadystatechange=()=>{
+//         if (xhr.readyState==4 && xhr.status==200){
+//             category.innerHTML=xhr.responseText;
+//         }
+//     }
+//     xhr.open("GET","search_value.php?search_value="+search_value_value,true);
+//     xhr.send();
+// });
+
 

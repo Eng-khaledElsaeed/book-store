@@ -62,12 +62,15 @@ if(isset($_GET['timeout']) || !isset($admin_id)){
     <!-- include sidenav code  -->
     <?php include('admin_sidenav.php'); ?>
     <main class="main">
-        
+        <div class="button">
+            <a href="add_user.php" class="btn">Add New user</a>
+        </div>
         <div class="main_item acoounts basic_table show" data-content="item2" style="margin:30px auto;">
             <div class="table_head">
                 <h3>User Accounts</h3>
             </div>
             <div class="table">    
+               
             <table>
                 <thead>
                     <tr>
@@ -121,7 +124,7 @@ if(isset($_GET['timeout']) || !isset($admin_id)){
                         // Content of the table
                         $slno = $start_rec + 1; 
                            
-                        $query_4_users=mysqli_query($conn,"SELECT * FROM users WHERE user_role='user' LIMIT $start_rec, $pagesize ");
+                        $query_4_users=mysqli_query($conn,"SELECT * FROM users WHERE user_role='user' ORDER BY user_name ASC LIMIT $start_rec, $pagesize");
                         if(mysqli_num_rows($query_4_users)>0){
                             while($row_4_users=mysqli_fetch_assoc($query_4_users)){
                                 $user_id=$row_4_users['user_id'];

@@ -2,17 +2,18 @@
 include '../database/config.php';
 //Beginning the session.
 session_start();
-if(isset($_POST['add-admin'])){
-    $admin_name=mysqli_real_escape_string($conn,$_POST['admin-name']);
-    $admin_phone=$_POST['admin-phone'];
-    $admin_email=$_POST['admin-email'];
-    $admin_password=$_POST['admin-pass'];
-    $user_role="admin";
+if(isset($_POST['add-user'])){
+    $user_name=mysqli_real_escape_string($conn,$_POST['user-name']);
+    $user_phone=$_POST['user-phone'];
+    $user_city=$_POST['user-city'];
+    $user_email=$_POST['user-email'];
+    $user_password=$_POST['user-pass'];
+    $user_role="user";
 
-    if($_FILES["admin-image"]["error"] == UPLOAD_ERR_OK){
+    if($_FILES["user-image"]["error"] == UPLOAD_ERR_OK){
         // Specify the directory where you want to save the uploaded image
         $targetDir = "../uploaded_img/";
-        $filename = uniqid() . "_" . $_FILES["admin-image"]["name"];  // Generate a unique filename for the uploaded image
+        $filename = uniqid() . "_" . $_FILES["user-image"]["name"];  // Generate a unique filename for the uploaded image
         $user_image_url = $targetDir . $filename; // Create the full path to the target directory
     } else {
        $message=[
@@ -22,22 +23,22 @@ if(isset($_POST['add-admin'])){
        ];
     }
 
-    $sql = "INSERT INTO users(user_name,image,phone,email,user_pass,user_role) 
-    VALUES ('$admin_name','$user_image_url','$admin_phone','$admin_email','$admin_password','$user_role')";
+    $sql = "INSERT INTO users(user_name,image,phone,email,user_pass,user_role,city) 
+    VALUES ('$user_name','$user_image_url','$user_phone','$user_email','$user_password','$user_role','$user_city')";
     $query=mysqli_query($conn,$sql);
     if ($query) {
         // echo "New record created successfully";
         $message=[
             "type"=>"success",
-            "title"=>"Admin Successfully Added",
-            "page"=>"admin_accounts.php",
+            "title"=>"user Successfully Added",
+            "page"=>"accounts.php",
         ];
         // Move the uploaded file to the target path 
-        move_uploaded_file($_FILES["admin-image"]["tmp_name"], $admin_image_url);
+        move_uploaded_file($_FILES["user-image"]["tmp_name"], $user_image_url);
     }else{
         $message=[
             "type"=>"error",
-            "title"=>"admin Failed To Add please call adminstrator",
+            "title"=>"user Failed To Add please call adminstrator",
             "page"=>"same_window",
         ];
     }
@@ -59,7 +60,7 @@ if(isset($_GET['timeout']) || !isset($admin_id)){
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>add admin</title>
+    <title>add user</title>
     <!-- sweetalert -->
         <link href="
     https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.min.css
@@ -76,28 +77,31 @@ if(isset($_GET['timeout']) || !isset($admin_id)){
     <?php include('admin_sidenav.php'); ?>
 
     <main class="main" style="padding:10px">
-        <div class="main_item book_forms show" data-content="item9">
+        <div class="main_item book_forms show" data-content="item2">
             <div class="add_form">
-                <h3>Add admin</h3>
+                <h3>Add user</h3>
                 <form action="" method="post" enctype="multipart/form-data" class="form2">
                  
-                    <label for="name">admin Name :</label>
-                    <input type="text" id="name" name="admin-name" required placeholder="Admin Name...">
+                    <label for="name">User Name :</label>
+                    <input type="text" id="name" name="user-name" required placeholder="user Name...">
 
-                    <label for="admin_pass">Admin Password : </label>
-                    <input type="password" name="admin-pass" id="admin_pass" required placeholder="admin password...">
+                    <label for="user_pass">user Password : </label>
+                    <input type="password" name="user-pass" id="user_pass" required placeholder="user password...">
 
                     <label for="phone">phone :</label>
-                    <input type="text" id="phone" name="admin-phone" placeholder="Enter phone...">
+                    <input type="text" id="phone" name="user-phone" placeholder="Enter phone...">
+
+                    <label for="city">city :</label>
+                    <input type="text" id="city" name="user-city" placeholder="Enter city...">
 
                     <label for="email">Email :</label>
-                    <input type="email" id="email" name="admin-email" required placeholder="Entaer Email...">
+                    <input type="email" id="email" name="user-email" required placeholder="Entaer Email...">
 
                     <label for="image">upload Image:</label>
-                    <input type="file" id="image" name="admin-image" accept="image/*"> 
+                    <input type="file" id="image" name="user-image" accept="image/*"> 
                     <!-- (accept="image/*")-> this prevent file input to select unexpected files -->
                     </select>
-                    <input type="submit" name="add-admin" value="Add Admin">
+                    <input type="submit" name="add-user" value="Add user">
                 </form>
             </div>
             

@@ -63,7 +63,6 @@ if(isset($_GET['timeout']) || !isset($admin_id)){
             <a href="add_category.php" class="btn">Add New category</a>
         </div>
         <div class="main_item all_category basic_table show" data-content="item4">
-            
             <div class="table_head">
                 <h3> Display All categories</h3>
             </div>
@@ -80,21 +79,15 @@ if(isset($_GET['timeout']) || !isset($admin_id)){
                         <th>delete</th>
                     </tr>
                 </thead>
+      
                 <tbody id="category_table">
                     <?php
                         // Records per page is set to 10
                         $pagesize = 10;      
                         $start_rec =0;
-                        
-                        if(isset($_REQUEST['search_category'])){
-                            $search_category =$_REQUEST['search_category'];
-                        }else{
-                            $search_category = "";
-                        };
-
+                        $search_category = "";
                         $condition="category_name LIKE '%$search_category%' OR category_id LIKE '%$search_category%' OR category_desc LIKE '%$search_category%' OR category_status LIKE '%$search_category%'";
                         $categories_query=mysqli_query($conn,"SELECT COUNT(*) as categories_count FROM category WHERE $condition");
-
                         while ($count_categories=mysqli_fetch_assoc($categories_query)){
                             $all_categories=$count_categories['categories_count'];
                         };
@@ -104,15 +97,15 @@ if(isset($_GET['timeout']) || !isset($admin_id)){
                         // if the page is greater than the number of pages, display the last page
                         $next_page_disable=false;
                         $privious_page_disable=false;
-                        if(isset($_REQUEST['page'])){
-                            if($_REQUEST['page']>=$num_pages ){
+                        if(isset($_GET['page'])){
+                            if($_GET['page']>=$num_pages ){
                                 $curr_page=$num_pages;
                                 $next_page_disable=true;
-                            }elseif($_REQUEST['page']<=1){
+                            }elseif($_GET['page']<=1){
                                 $curr_page=1;
                                 $privious_page_disable=true;
                             }else{
-                                $curr_page = $_REQUEST['page'];
+                                $curr_page = $_GET['page'];
                             }
                         }
                         else{
@@ -160,23 +153,22 @@ if(isset($_GET['timeout']) || !isset($admin_id)){
                                 if ($privious_page_disable) {
                                     echo "<span style='color: #878787;cursor: auto;'>&lt; previous</span>";
                                 } else {
-                                    echo "<a href='?page=$privious_page&per-pages=$num_pages'>&lt; previous</a>";
+                                    echo "<a href='?page=$privious_page&per-pages=$num_pages&search_category=$search_category'>&lt; previous</a>";
                                 };
 
                                 for ($i = $start; $i <= $end; $i++) {
-                                    $page_link = "?page=" . $i . "&per-pages=" . $num_pages . "&search_category=" . urlencode($search_category);
-                                    $active_class = ($i == $curr_page) ? 'active' : '';
+                                    // $page_link = "page=" . $i . "&per-pages=" . $num_pages . "&search_category=" . $search_category;
                                     if ($i == $curr_page) {
                                         echo "<span style='color:white;background: #878787;padding: 5px;border-radius: 50%;font-size: 17px;'>$i</span>";
                                     } else {
-                                        echo "<a href='$page_link' class='page-link'>$i</a>";
+                                        echo "<a href='?page=$i&per-pages=$num_pages&search_category=$search_category' class='page-link'>$i</a>";
                                     }
                                 };
 
                                 if ($next_page_disable) {
                                     echo "<span style='color: #878787;cursor: auto;'>next &gt;</span>";
                                 } else {
-                                    echo "<a href='?page=$next_page&per-pages=$num_pages'>next&gt;</a>";
+                                    echo "<a href='?page=$next_page&per-pages=$num_pages&search_category=$search_category'>next&gt;</a>";
                                 };
                             ?>
                         </div>
