@@ -3,382 +3,103 @@ user:admin.khaled1@gmail.com
 pass:Admin@Khaled@010
 
 
-
-
-
-
-
 <?php
-include '../database/config.php';
-//Beginning the session.
-session_start();
-if(isset($_POST['add-product'])){
-    
-    $book_name=mysqli_real_escape_string($conn,$_POST['pro-name']);
-    $book_desc=mysqli_real_escape_string($conn,$_POST['pro-description']);
-    $book_amount=$_POST['pro-amount'];
-    $book_price=$_POST['pro-price'];
-    $status="available";
-    $book_category_id=$_POST['pro-category'];
-    $book_added_id=$_SESSION['admin_id'];
-    $book_stock_id=$_POST['pro-stock'];
-    if($_FILES["pro-image"]["error"] == UPLOAD_ERR_OK){
-        // Specify the directory where you want to save the uploaded image
-        $targetDir = "../uploaded_img/";
-        // Generate a unique filename for the uploaded image
-        $filename = uniqid() . "_" . $_FILES["pro-image"]["name"];
-        // Create the full path to the target directory
-        $prod_image_url = $targetDir . $filename;
-        // Move the uploaded file to the target path 
-
-        $sql = "INSERT INTO products (prod_name,prod_desc,prod_quant,price,status,category_id,user_id,stock_id,prod_imag_url) VALUES ($book_name,$book_desc,$book_amount,$book_price,$status,$book_category_id,$book_added_id,$book_stock_id,$prod_image_url)";
-        $query=mysqli_query($conn,$sql);
-        if ($query) {
-            // echo "New record created successfully";
-            $message=[
-                "type"=>"success",
-                "title"=>"Product Successfully Added",
-            ];
-            move_uploaded_file($_FILES["pro-image"]["tmp_name"], $prod_image_url);
-        }else{
-            $message=[
-                "type"=>"error",
-                "title"=>"Product Failed To Add",
-            ];
-        }
-    } else {
-       $message=[
-        "type"=>"error",
-        "title"=>"Error: " . $_FILES["pro-image"]["error"],
-       ];
-    }
-};
-
-
-
-
-//Checking if the user is logged in, if not then redirect him to login page.
-$admin_id=$_SESSION['admin_id'];
-if(isset($_GET['timeout']) || !isset($admin_id)){
-    mysqli_query($conn, "UPDATE `users` SET connection_status = 'offline' WHERE  user_id='".$admin_id."' LIMIT 1");
-    session_unset();
-    session_destroy(); 
-    header("location:../sign_in.php");
-}
-
-?>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>books</title>
-    <!-- sweetalert -->
-        <link href="
-    https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.min.css
-    " rel="stylesheet">
-    <!-- main css file -->
-    <link rel="stylesheet" href="../css/side_config.css">
-    <link rel="stylesheet" href="../css/admin_style.css">
-    
-    
-</head>
-<body>
-   <div class="dashboard_layout">
-    
-    <!-- include header code  -->
-    <?php include('admin_header.php'); ?>
-
-    <!-- include sidenav code  -->
-    <?php include('admin_sidenav.php'); ?>
-
-
-
-    <main class="main" style="background: #fff;padding:0px">
-        <div class="main_item products show">
-            <div class="add_products_form">
-                <h3>Add Products</h3>
-                <form action="" method="post" enctype="multipart/form-data" class="form2">
-            
-                    <label for="name">Product Name:</label>
-                    <input type="text" id="name" name="pro-name" required>
-
-                    <label for="amount">Amount:</label>
-                    <input type="number" id="amount" name="pro-amount" required>
-
-                    <label for="price">Price:</label>
-                    <input type="number" id="price" name="pro-price" required>
-
-                    <label for="image">upload Image:</label>
-                    <input type="file" id="image" name="pro-image" required accept="image/*"> 
-                    <!-- (accept="image/*")-> this prevent file input to select unexpected files -->
-
-                    <label for="description">Description:</label>
-                    <input type="text" id="description" name="pro-description" required>
-
-                    
-                    
-                    <label for="category">Category:</label>
-                    <select id="category" name="pro-category" required>
-                    <option value="">Select a category</option>
-                    <?php
-                    $query_0_categ=mysqli_query($conn,"SELECT * FROM `category` ORDER BY category_name");
-                    if(mysqli_num_rows($query_0_categ) > 0){
-                        
-                        while($row_0_categ=mysqli_fetch_assoc($query_0_categ)){
-                            $cat_value=$row_0_categ["category_id"];
-                            $cat_name=$row_0_categ["category_name"];
-                            echo "<option value='{$cat_value}'>{$cat_name}</option>";
-                        }
-                    }
-                    ?>
-                    </select>
-
-                    <label for="stock">stock name:</label>
-                    <select id="stock" name="pro-stock" required>
-                    <option value="">Select a stock</option>
-                    <?php
-                    $query_0_stock=mysqli_query($conn,"SELECT * FROM stock ORDER BY stock_name");
-                    if(mysqli_num_rows($query_0_stock) > 0){
-                        while($row_0_stock=mysqli_fetch_assoc($query_0_stock)){
-                            $stock_value=$row_0_stock["stock_id"];
-                            $stock_name=$row_0_stock["stock_name"];
-                            echo "<option value='{$stock_value}'>{$stock_name}</option>";
-                        }
-                    }
-                    ?>
-                    </select>
-                    
-                    <input type="submit" name="add-product" value="Add Product">
-                </form>
-            </div>
-            
-        </div>
-    </main>
-
- <?php include('admin_footer.php'); ?>
-
-   </div>
-   <script>
-     
-    </script>
-    <!-- main javascript file  -->
-    <script src="https://kit.fontawesome.com/9e0e68f55e.js" crossorigin="anonymous"></script>
-    <!-- sweetalert -->
-    <script src="
-    https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js
-    "></script>
-    <script src="../js/admin.js"></script>
-
-<!-- pase all page messages to javascript-->
-    <?php
-    if(isset($message)){
-        $msg=json_encode($message);
-        echo "<script>
-        CRUD_message($msg)
-        </script>";
-    }
-    ?>
-</body>
-</html>
-
-
-
-
-
-
-<?php
-        if(isset($_POST['new_message'])){
-            foreach ($support_messages as $message){
-                $query_3_users=mysqli_query($conn,"SELECT * FROM `users` WHERE `user_id`={$message['user_id']}");
-                if(mysqli_num_rows($query_3_users)>0){
-                    $row_3_users=mysqli_fetch_assoc($query_3_users);
-                    
-                    echo " 
-                    <div class='message_block' id='message_block'>
-                    <div class='users_message'>
-                        <div class='user_image'>
-                            <img src={$row_3_users['image']} alt=''>
-                        </div>
-
-                        <div class='message_text'>
-                            <div class='row'>
-                                <p class='sender'>{$row_3_users['user_name']}</p>";
-
-                            echo "<p class='message_time'>".find_message_time($message['message_time'])."</p>";
-                    echo        "</div>
-                            <div class='row'>
-                                <p class='message'>{$message['message']}</p>
-                                <p class='counter'>3</p>
-                            </div>
-                        </div> 
-                        </div>
-                    </div>";
-                    
-                }
-
-            }
-                
-        }else{
-            // echo "you dom,t have message!";
-        }
-        ?>
-
-
-
-
-
-
-
-
-
- <div class="track_order">
-                <form action="" method="post" class="search">
-                    <input type="text" name="track" id="track" placeholder="track order by order-id ">                
-                    <button type="submit" class="searchbutton" name="searchbutton">
-                       <i class="fa fa-search"></i>
-                    </button>
-                </form>
-
-                <?php
-                if(isset($_POST["update_button"])){
-                    echo "update";
-                    //     echo "<div class='tracking_container'>
-                    //     <form action='' method='post'>
-                    //         <h5 class='order_id'>#order-id: ". $order_id ."</h5>
-                    //         <div class='order_detail'>
-                    //             <div><h5>order location</h5><input type='text' name='update_location' value=".$row_tracking['order_location']."></div>
-                    //             <div><h5>product name</h5> <input type='text' name='update_name' value=".$row_tracking['prod_name']."></div>
-                    //             <div><h5>shipped date</h5> <input type='text' name='update_shipped_date' value=".$row_tracking['shipped_date']."></div>
-                    //             <div><h5>clint phone</h5> <input type='text' name='update_phone' value=".$row_tracking['phone']."></div>
-                    //             <div><h5>total price</h5> <input type='text' name='update_total_price' value=".$row_tracking['total_price']."></div>
-                    //             <div class='update_order_buttons'>
-                    //                 <button type='submit' class='update_button' name='update_button'>update</button>
-                    //                 <button type='submit' class='cancel_button' name='cancel_button'>remove</button>
-                    //             </div>
-                    //         </div>
-                    //     </form>
-                    // </div>";
-                }
-                
-                
-                if(isset($_POST["searchbutton"])){
-                    
-                    $order_id=$_POST["track"];
-                    if(!empty($order_id)){
-                        $tracking=mysqli_query($conn,
-                        "SELECT o.order_location,o.prod_id,o.user_id,o.shipped_date,
-                        o.total_price,p.prod_id,p.prod_name,u.user_id,u.user_name,u.phone
-                        FROM orders o INNER JOIN products p on p.prod_id=o.prod_id INNER JOIN users u on u.user_id=o.user_id WHERE order_id=$order_id");
-                        
-                        if($tracking){
-                            if(mysqli_num_rows($tracking) > 0){
-                                $row_tracking=mysqli_fetch_assoc($tracking);
-                                echo "<div class='tracking_container'>
-                                <form action='' method='post'>
-                                    <h5 class='order_id'>#order-id: ". $order_id ."</h5>
-                                    <div class='order_detail'>
-                                        <div><h5>order location</h5><span>".$row_tracking['order_location']."</sapn></div>
-                                        <div><h5>product name</h5> <span>".$row_tracking['prod_name']."</span></div>
-                                        <div><h5>shipped date</h5> <span>".$row_tracking['shipped_date']."</span></div>
-                                        <div><h5>clint phone</h5> <span>".$row_tracking['phone']."</span></div>
-                                        <div><h5>total price</h5> <span>".$row_tracking['total_price']."</span></div>
-                                        <div class='edit_order_buttons'>
-                                            <button type='submit' class='update_button' name='update_button'>update</button>
-                                            <button type='submit' class='remove_button' name='remove_button'>remove</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>";
-                            
-    
-                            }else{
-                                echo "<p class='order_error'>this order id: ". $order_id ." is not fount!</p>";
-                            } 
+                        // Records per page is set to 10
+                        $pagesize = 10;      
+                        $start_rec =0;
+                        if(isset($_GET['search_category'])){
+                            $search_category = $_GET['search_category'];
                         }else{
-                            echo "<p class='order_error'>please enter correct number of id!</p>";
+                            $search_category="";
                         }
-                    };
-                };
-             
+                      
+                        $condition="category_name LIKE '%$search_category%' OR category_id LIKE '%$search_category%' OR category_desc LIKE '%$search_category%' OR category_status LIKE '%$search_category%'";
+                        $categories_query=mysqli_query($conn,"SELECT COUNT(*) as categories_count FROM category WHERE $condition");
+                        while ($count_categories=mysqli_fetch_assoc($categories_query)){
+                            $all_categories=$count_categories['categories_count'];
+                        };
 
-                ?>
-                
-            </div>
+                        // calculate number of pages
+                        $num_pages = ceil($all_categories/$pagesize);
+                        // if the page is greater than the number of pages, display the last page
+                        $next_page_disable=false;
+                        $privious_page_disable=false;
+                        if(isset($_GET['page'])){
+                            if($_GET['page']>=$num_pages ){
+                                $curr_page=$num_pages;
+                                $next_page_disable=true;
+                            }elseif($_GET['page']<=1){
+                                $curr_page=1;
+                                $privious_page_disable=true;
+                            }else{
+                                $curr_page = $_GET['page'];
+                            }
+                        }
+                        else{
+                            $curr_page = 1;
+                        };
 
+                        $privious_page=$curr_page-1;
+                        $next_page=$curr_page+1;
+                        // Calculating the starting record number
+                        $start_rec = (($curr_page-1) * $pagesize);
+                        // Content of the table
+                        $slno = $start_rec + 1;     
+                        $query_1_categories=mysqli_query($conn,"SELECT * FROM category WHERE $condition LIMIT $start_rec, $pagesize");
 
-            
-/* 
-.dashboart .track_order .order_error{
-    text-align: center;
-    color: var(--danger-color);
-    font-size: 18px;
-}
-.dashboart .track_order .search{
-    display: flex;
-    align-items: center;
-    margin: 1rem 0;
-}
-.dashboart .track_order #track{
-    padding: .9rem .6rem;
-    width: 100%;
-    font-size: 15px;
-    border-radius: 0.5rem 0 0 .5rem;
-}
-.dashboart .track_order #track:focus{
-    box-shadow: 3px 3px 25px #648ca6;
-}
-.dashboart .track_order .searchbutton {
-    border: 1px solid var(--admin-buttons);
-    background: var(--admin-buttons);
-    text-align: center;
-    color: #eeeeee;
-    border-radius: 0 0.5rem .5rem 0;
-    cursor: pointer;
-    font-size: 20px;
-    padding: .7rem .6rem;
-}
-.dashboart .track_order .tracking_container{
-    padding: 1rem;
-    background: #fff;
-    text-align: center;
-}
-.track_order .tracking_container .order_id{
-    font-size: 15px;
-    background: var(--green-btn);
-    color: #fff;
-    width: fit-content;
-    padding: 5px;
-    border-radius: 10px;
-    margin: auto;
-}
-.track_order .tracking_container .order_detail{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin: 10px 0;
-}
-.track_order .tracking_container .order_detail input{
-text-align: center;
-}
-.track_order .tracking_container .order_detail .edit_order_buttons{
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-.tracking_container .order_detail .edit_order_buttons .update_button,
-.tracking_container .order_detail .edit_order_buttons .remove_button{
-    padding: 10px;
-    color: #fff;
-    font-size: 15px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-.tracking_container .order_detail .edit_order_buttons .update_button{
-    background:var(--success-color) ;
-}
-.tracking_container .order_detail .edit_order_buttons .remove_button{
-    background: var(--danger-color);
-} */
+                        if(mysqli_num_rows($query_1_categories)>0){
+                            while($row_1_categories=mysqli_fetch_assoc($query_1_categories)){
+                                $query_5_products=mysqli_query($conn,"SELECT COUNT(*) AS count_products_of_category FROM products WHERE category_id={$row_1_categories['category_id']}");
+                                while($row_5_products=mysqli_fetch_assoc($query_5_products)){
+                                    $count_products_of_category=$row_5_products['count_products_of_category'];
+                                };
+                                $category_id=$row_1_categories['category_id'];
+                                echo 
+                                "<tr id='row-$category_id'>
+                                    <td>$slno</td>
+                                    <td>{$row_1_categories['category_name']}</td>
+                                    <td>{$row_1_categories['category_desc']}</td>
+                                    <td>{$row_1_categories['category_status']}</td>
+                                    <td>{$count_products_of_category}</td>
+                                    <td><button type='button' id='update_btn-$category_id' class='update_btn' data-value='category' data-id='$category_id'>update</button></td>
+                                    <td><button type='button' id='delete_btn-$category_id' class='delete_btn' data-value='category' data-id='$category_id'>delete</button></td>
+                                </tr>";
+                                $slno++;
+                            }
+                        }else{
+                            echo "<p style='text-align: center;'>No Data Found</p>";
+                        };
+                    ?>
+                    <div class="table_pagnetion">
+                        <div></div>
+                        <div class="paginations_controles">
+                            <?php
+                                $start = max(1, $curr_page - 5);
+                                $end = min($num_pages, $curr_page + 5);
+
+                                if ($privious_page_disable) {
+                                    echo "<span style='color: #878787;cursor: auto;'>&lt; previous</span>";
+                                } else {
+                                    echo "<a href='?page=$privious_page&per-pages=$num_pages&search_category=$search_category'>&lt; previous</a>";
+                                };
+
+                                for ($i = $start; $i <= $end; $i++) {
+                                    // $page_link = "page=" . $i . "&per-pages=" . $num_pages . "&search_category=" . $search_category;
+                                    if ($i == $curr_page) {
+                                        echo "<span style='color:white;background: #878787;padding: 5px;border-radius: 50%;font-size: 17px;'>$i</span>";
+                                    } else {
+                                        echo "<a href='?page=$i&per-pages=$num_pages&search_category=$search_category' class='page-link'>$i</a>";
+                                    }
+                                };
+
+                                if ($next_page_disable) {
+                                    echo "<span style='color: #878787;cursor: auto;'>next &gt;</span>";
+                                } else {
+                                    echo "<a href='?page=$next_page&per-pages=$num_pages&search_category=$search_category'>next&gt;</a>";
+                                };
+                            ?>
+                        </div>
+                        <div class="numper_of_pages">
+                            <span> <?php echo "NO pages: ".$num_pages; ?></span>
+                        </div>
+                    </div>

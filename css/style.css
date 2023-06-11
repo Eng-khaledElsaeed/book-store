@@ -54,6 +54,7 @@ text-align: center;
     padding: 3px 10px;
     border-radius: 15px;
     margin: 5px 0;
+   
 }
 .form-container form input[type=email]:focus,
 .form-container form input[type=password]:focus,
