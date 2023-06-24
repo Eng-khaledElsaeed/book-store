@@ -62,7 +62,9 @@ text-align: center;
     box-shadow: 0 0 5px #caff00;
     border: 1px solid #caff00;
 }
+
 input[type=password]::-ms-reveal{ display: none;}  /*this line to remove default eye icon from password field*/
+
 .password-container{
 position: relative;
 width: 100%;
@@ -108,8 +110,9 @@ width: 100%;
     text-decoration: underline;
     color: #caff00;
 }
+
 /* ------------- google signing button ------------ */
-.g-signin2{
+/* .g-signin2{
     width: 100%;
     display: flex;
     align-items: center;
@@ -133,7 +136,9 @@ width: 100%;
 .abcRioButtonSvgImageWithFallback .abcRioButtonSvg{
     width: 26px !important;
     height: 26px !important;
-}
+} */
+
+
 @media (max-width:767px){
     .form-container form{
         width: 96%;

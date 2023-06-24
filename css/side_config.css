@@ -87,7 +87,7 @@ width: 10px;
     display: block;
 }
 .hid{
-    display: block;
+    display: none ;
 }
 
 /* ********************** interactive styles classes********************* */

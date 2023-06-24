@@ -82,7 +82,7 @@ if(isset($_GET['timeout']) || !isset($admin_id)){
                         <th>delete</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="users_table">
                     <?php
                         // Records per page is set to 10
                         $pagesize = 10;      

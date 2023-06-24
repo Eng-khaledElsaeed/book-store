@@ -2,7 +2,7 @@
 include 'database/config.php';
 
 
-if(isset($_POST['btnsubmit'])){
+if(isset($_POST['submit'])){
 
 $name=mysqli_real_escape_string($conn,$_POST['name']);
 $email=mysqli_real_escape_string($conn,$_POST['email']);
@@ -43,29 +43,35 @@ $messages[]="user Already Exist!";
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>sign_up</title>
+    <meta name="description" content="here you can sign up as a new user">
+
+    <!-- main title of page -->
+    <title>book-store - signup new user</title>
+
     <!-- main css file -->
     <link rel="stylesheet" href="css/side_config.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+
     <div class="shape-1"></div>
     <div class="shape-3"></div>
     <div class="form-page">
         <div class="form-container">
             <form action="" method="post" id="form0" name="form0">
                 <h3>register now</h3>
-                
+            
                <?php
-               if(isset($messages)){
-                foreach($messages as $message){
-                    echo '<div class="message">
-                            <span>'.$message.'</span>
-                            <i class="fa fa-times" onclick="this.parentElement.remove();"></i>
-                          </div>';
+                if(isset($messages)){
+                        foreach($messages as $message){
+                            echo '<div class="message">
+                                    <span>'.$message.'</span>
+                                    <i class="fa fa-times" onclick="this.parentElement.remove();"></i>
+                                </div>';
+                        }
                 }
-               }
                ?>
+
                <input type="text" name="name" id="name" placeholder="Enter Your Name" required class="box">
                <input type="email" name="email" id="email" placeholder="Enter Your email" required class="box">
 
@@ -76,6 +82,7 @@ $messages[]="user Already Exist!";
                         <i class="far fa-eye" onclick="show(this)"></i>
                     </span>
                 </div>
+                <!---------- password strength ------->
                 <input type="hidden" id="strength" name="strength">
 
                 <div id="password-strength" 
@@ -88,6 +95,7 @@ $messages[]="user Already Exist!";
                     style="width:0%">
                 </div>
 
+                <!---------- this list of the format of password that you have to follow ---------->
                 <ul class="pass-format-list">
                     <li class="">
                         <span class="low-upper-case">
@@ -110,7 +118,7 @@ $messages[]="user Already Exist!";
                     <li class="">
                         <span class="eight-character">
                             <i class="fas fa-circle" aria-hidden="true"></i>
-                            &nbsp;Atleast 8 Character
+                            &nbsp;At least 8 Character
                         </span>
                     </li>
                 </ul>
@@ -123,17 +131,20 @@ $messages[]="user Already Exist!";
                     </span>
                </div>
                <div class="submit-btn">
-                   <input type="submit" name="btnsubmit" value="register" class="btn" >
+                   <input type="submit" name="submit" value="register" class="btn" >
                </div>
-               <div class="g-signin2" data-onsuccess="onSignIn"></div>
 
-               <p>Already have an account?sign in now  <a href="sign_in.php">here</a></p>
+            <!-- this is place for other account authorization like google facebook -->
+               <!-- <div class="g-signin2" data-onsuccess="onSignIn"></div> -->
+
+               <p>Already have an account?sign in now  <a href="sign_in.php">here <i class="fa-solid fa-arrow-right"></i></a></p>
            </form>
         </div>
     </div>
 
     <!-- main javascript file  -->
     <script src="https://kit.fontawesome.com/9e0e68f55e.js" crossorigin="anonymous"></script>
+
     <!-- <script src="https://apis.google.com/js/platform.js" async defer></script> -->
     <script src="js/main.js"></script>
 </body>

@@ -2,11 +2,11 @@
 include 'database/config.php';
 session_start();
 
-if(str_ends_with($_SERVER['REQUEST_URI'],'website')){
+if(substr(($_SERVER['REQUEST_URI']),strpos(($_SERVER['REQUEST_URI']),'?')) > 0){
     $messages[]=$_GET['success'];
 }
 
-if(isset($_POST['btnsubmit'])){
+if(isset($_POST['submit'])){
 
 $email=mysqli_real_escape_string($conn,$_POST['email']);
 $pass=mysqli_real_escape_string($conn, md5 ($_POST['password']));
@@ -20,13 +20,11 @@ if(mysqli_num_rows($user_Login)>0){
         $_SESSION['admin_email']=$row['email'];
         $_SESSION['admin_id']=$row['user_id'];
         header("location:admin_pages/dashboard/dashboard.php");
-        echo "this admin page";
     }elseif($row['user_role']=='user'){
         $_SESSION['user_name']=$row['user_name'];
         $_SESSION['user_email']=$row['email'];
         $_SESSION['user_id']=$row['user_id'];
         header("location:home.php");
-        echo "this user page";
     }
     mysqli_query($conn,"UPDATE users set connection_status='online' , last_seen=now() where user_id='".$row['user_id']."'");
 }else{
@@ -42,7 +40,7 @@ if(mysqli_num_rows($user_Login)>0){
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>sign_in</title>
+    <title>book-store - signin user</title>
     <!-- main css file -->
     <link rel="stylesheet" href="css/side_config.css">
     <link rel="stylesheet" href="css/style.css">
@@ -74,11 +72,13 @@ if(mysqli_num_rows($user_Login)>0){
                 </div>
 
                <div class="submit-btn">
-                   <input type="submit" name="btnsubmit" value="login" class="btn" >
+                   <input type="submit" name="submit" value="login" class="btn" >
                </div>
-               <div class="g-signin2" data-onsuccess="onSignIn"></div>
+
+              <!-- this is place for other account authorization like google facebook -->
+               <!-- <div class="g-signin2" data-onsuccess="onSignIn"></div> -->
                
-               <p>i need account? sign up now  <a href="sign_up.php">here</a></p>
+               <p>i need account? sign up now  <a href="sign_up.php">here <i class="fa-solid fa-arrow-right"></i></a></p>
            </form>
         </div>
     </div>
