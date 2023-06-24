@@ -1,5 +1,5 @@
 <?php
-include '../database/config.php';
+include '../../database/config.php';
 //Beginning the session.
 session_start();
 
@@ -28,7 +28,7 @@ if(isset($_GET['timeout']) || !isset($admin_id)){
     mysqli_query($conn, "UPDATE `users` SET connection_status = 'offline' WHERE  user_id='".$admin_id."' LIMIT 1");
     session_unset();
     session_destroy(); 
-    header("location:../sign_in.php");
+    header("location:../../sign_in.php");
 }
 
 
@@ -42,21 +42,19 @@ if(isset($_GET['timeout']) || !isset($admin_id)){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>category</title>
     <!-- sweetalert -->
-        <link href="
-    https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.min.css
-    " rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.7.12/sweetalert2.min.css" rel="stylesheet">
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- main css file -->
-    <link rel="stylesheet" href="../css/side_config.css">
-    <link rel="stylesheet" href="../css/admin_style.css">
+    <link rel="stylesheet" href="../../css/side_config.css">
+    <link rel="stylesheet" href="../../css/admin_style.css">
 </head>
 <body>
    <div class="dashboard_layout">
     <!-- include header code  -->
-    <?php include('admin_header.php'); ?>
+    <?php include('../page_parts/admin_header.php'); ?>
     <!-- include sidenav code  -->
-    <?php include('admin_sidenav.php'); ?>
+    <?php include('../page_parts/admin_sidenav.php'); ?>
 
     <main class="main" style="padding:0px" >
         <div class="button">
@@ -83,23 +81,23 @@ if(isset($_GET['timeout']) || !isset($admin_id)){
                     </tr>
                 </thead>
                 <tbody id="category_table">
-                    
+                    <!--------------------------------------------------------------------------
+                    this table will file automatically will page open or if search about element 
+                    --------------------------------------------------------------------------->
                 </tbody>
             </table>
         </div>
         </div>
     </main>
- <?php include('admin_footer.php'); ?>
+ <?php include('../page_parts/admin_footer.php'); ?>
    </div>
     <!-- main javascript file  -->
 
     <script src="https://kit.fontawesome.com/9e0e68f55e.js" crossorigin="anonymous"></script>
     <!-- sweetalert -->
-    <script src="
-    https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js
-    "></script>
-    <script src="../js/ajax_category_search.js"></script>
-    <script src="../js/admin.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.7.12/sweetalert2.min.js"></script>
+    <script src="../../js/admin.js"></script>
+    <script src="ajax_category_search.js"></script>
 <!-- pase all page messages to javascript-->
     <?php
     if(isset($message)){

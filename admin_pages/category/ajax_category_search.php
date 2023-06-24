@@ -1,5 +1,5 @@
 <?php
-include '../database/config.php';
+include '../../database/config.php';
 $search_category=$_GET['search_value'];
 
 $pagesize = 10;
@@ -40,6 +40,7 @@ $slno = $start_rec + 1;
 $query_1_categories=mysqli_query($conn,"SELECT * FROM category WHERE $condition LIMIT $start_rec, $pagesize");
 
 $category_arr = array(); // Initialize the category array
+
 if($query_1_categories){
     if (mysqli_num_rows($query_1_categories) > 0) {
         while ($row_1_categories = mysqli_fetch_assoc($query_1_categories)) {

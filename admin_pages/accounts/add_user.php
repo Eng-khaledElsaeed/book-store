@@ -62,9 +62,7 @@ if(isset($_GET['timeout']) || !isset($admin_id)){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>add user</title>
     <!-- sweetalert -->
-        <link href="
-    https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.min.css
-    " rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.7.12/sweetalert2.min.css" rel="stylesheet">
     <!-- main css file -->
     <link rel="stylesheet" href="../css/side_config.css">
     <link rel="stylesheet" href="../css/admin_style.css">
@@ -111,10 +109,10 @@ if(isset($_GET['timeout']) || !isset($admin_id)){
    </div>
     <!-- main javascript file  -->
     <script src="https://kit.fontawesome.com/9e0e68f55e.js" crossorigin="anonymous"></script>
+
     <!-- sweetalert -->
-    <script src="
-    https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js
-    "></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.7.12/sweetalert2.min.js"></script>
+    
     <script src="../js/admin.js"></script>
 
 <!-- pase all page messages to javascript-->

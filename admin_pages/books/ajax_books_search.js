@@ -1,12 +1,10 @@
+let books_table=document.getElementById("books_table");
 
-let category_table=document.getElementById("category_table");
-function category_fill(page=1,search_value=""){
-    
+function book_fill(page=1,search_value=""){
     let xhr=new XMLHttpRequest();
     xhr.onreadystatechange=function(){
         if(this.readyState==4 && this.status==200){
             let json_data = JSON.parse(this.responseText);
-            console.log(json_data);
             let status=json_data.status;
             let data=json_data.data;
             let num_pages=json_data.num_pages;
@@ -24,21 +22,23 @@ function category_fill(page=1,search_value=""){
                     data.forEach((item)=>{
                         html_data +=
                         `
-                        <tr id='row-${item.category_id}'>
+                        <tr id='row-${item.prod_id}'>
                         <td>${slno++}</td>
+                        <td>${item.prod_name}</td>
                         <td>${item.category_name}</td>
-                        <td>${item.category_desc}</td>
-                        <td>${item.category_status}</td>
-                        <td>${item.count_products}</td>
-                        <td><button type='button' id='update_btn-${item.category_id}' class='update_btn' data-value='category' data-id='${item.category_id}'>update</button></td>
-                        <td><button type='button' id='delete_btn-${item.category_id}' class='delete_btn' data-value='category' data-id='${item.category_id}'>delete</button></td>
+                        <td>${item.prod_quant}</td>
+                        <td>${item.price}</td>
+                        <td>${item.status}</td>
+                        <td><img src='${item.prod_imag_url}' alt=''></td>
+                        <td><button type='button' id='update_btn-${item.prod_id}' class='update_btn' data-value='book' data-id='${item.prod_id}' onclick='updateElement(${item.prod_id});'>update</button></td>
+                        <td><button type='button' id='delete_btn-${item.prod_id}' class='delete_btn' data-value='book' data-id='${item.prod_id}' onclick='deleteElement(${item.prod_id});'>delete</button></td>
                         </tr>
                         `
                     });
                     let start=Math.max(1,curr_page-3);
                     let end=Math.min(num_pages,curr_page+3);
                     let searchValue=document.getElementById("searchValue").value;
-                    console.log(searchValue);
+                      
                     html_data+=
                     `
                     <div class='table_pagnetion'>
@@ -78,44 +78,10 @@ function category_fill(page=1,search_value=""){
             }else{
                 html_data="<tr><th colspan='7'><p style='color:red;text-align:center;'>no data found</p></th></tr>";
             }
-
-            category_table.innerHTML=html_data;
+            books_table.innerHTML = html_data;
         }
-    };
-    xhr.open("GET","../admin_pages/ajax_category_search.php?search_value="+search_value+"&page="+page,true);
+    }
+    xhr.open("GET","ajax_books_search.php?search_value="+search_value+"&page="+page,true);
     xhr.send();
-}
-category_fill();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// "<p style='text-align: center;'>No Data Found</p>"
-
-
-
-
-
-
-
-
-
-
-
+};
+book_fill();

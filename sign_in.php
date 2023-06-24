@@ -19,7 +19,7 @@ if(mysqli_num_rows($user_Login)>0){
         $_SESSION['admin_name']=$row['user_name'];
         $_SESSION['admin_email']=$row['email'];
         $_SESSION['admin_id']=$row['user_id'];
-        header("location:admin_pages/dashboard.php");
+        header("location:admin_pages/dashboard/dashboard.php");
         echo "this admin page";
     }elseif($row['user_role']=='user'){
         $_SESSION['user_name']=$row['user_name'];

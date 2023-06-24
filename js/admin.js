@@ -142,13 +142,10 @@ function CRUD_message(msg){
 }
 
 
-// update table data
-function update_product(){
-    let updatebtns=document.getElementsByClassName('update_btn');
-    for (let i = 0; i < updatebtns.length; i++){
-            updatebtns[i].addEventListener('click', ()=>{
-            let id=updatebtns[i].getAttribute('data-id');
-            let value=updatebtns[i].getAttribute('data-value');
+// update table elements
+function updateElement(id){
+            let element=document.getElementById("update_btn-"+id);
+            let value=element.getAttribute('data-value');
             Swal.fire({
                 title: 'Are you sure?',
                 text: "You won't to update "+value+" ID:#"+id+"!",
@@ -156,26 +153,23 @@ function update_product(){
                 width: 'fit-content',
                 padding: '1em',
                 position:'center',
-           
+            
                 showCancelButton: true,
                 cancelButtonColor: '#d33',
                 confirmButtonText: 'confirm',
                 confirmButtonColor: '#3085d6',
-              }).then((result) => {
-                  if (result.isConfirmed) {
+                }).then((result) => {
+                    if (result.isConfirmed) {
                     window.location.href="update-"+value+".php?update_id="+id;
                 }
-              })
-        });
-    }
+            })
+
 };
 
-function delete_product(){
-    let deletebtns=document.getElementsByClassName('delete_btn');
-    for (let i = 0; i < deletebtns.length; i++){
-        deletebtns[i].addEventListener('click', ()=>{
-        let id=deletebtns[i].getAttribute('data-id');
-        let value=deletebtns[i].getAttribute('data-value');
+// delete table elements
+function deleteElement(id){
+        let element=document.getElementById("delete_btn-"+id);
+        let value=element.getAttribute('data-value');
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't to delete "+value+" ID:#"+id+"!",
@@ -191,14 +185,10 @@ function delete_product(){
               if (result.isConfirmed) {
                 window.location.href='?delete_id='+id;
             }
-          })
-    });
-}
+        })
+
 };
 
 (()=>{
     session_timeout();
-});
-
-delete_product();
-update_product();
+})

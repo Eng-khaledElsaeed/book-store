@@ -1,7 +1,8 @@
 <?php
-include '../database/config.php';
+include '../../database/config.php';
 //Beginning the session.
 session_start();
+
 if(isset($_POST['add-admin'])){
     $admin_name=mysqli_real_escape_string($conn,$_POST['admin-name']);
     $admin_phone=$_POST['admin-phone'];
@@ -11,7 +12,7 @@ if(isset($_POST['add-admin'])){
 
     if($_FILES["admin-image"]["error"] == UPLOAD_ERR_OK){
         // Specify the directory where you want to save the uploaded image
-        $targetDir = "../uploaded_img/";
+        $targetDir = "../../uploaded_img/";
         $filename = uniqid() . "_" . $_FILES["admin-image"]["name"];  // Generate a unique filename for the uploaded image
         $user_image_url = $targetDir . $filename; // Create the full path to the target directory
     } else {
@@ -49,7 +50,7 @@ if(isset($_GET['timeout']) || !isset($admin_id)){
     mysqli_query($conn, "UPDATE `users` SET connection_status = 'offline' WHERE  user_id='".$admin_id."' LIMIT 1");
     session_unset();
     session_destroy(); 
-    header("location:../sign_in.php");
+    header("location:../../sign_in.php");
 };
 ?>
 
@@ -61,19 +62,17 @@ if(isset($_GET['timeout']) || !isset($admin_id)){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>add admin</title>
     <!-- sweetalert -->
-        <link href="
-    https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.min.css
-    " rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.7.12/sweetalert2.min.css" rel="stylesheet">
     <!-- main css file -->
-    <link rel="stylesheet" href="../css/side_config.css">
-    <link rel="stylesheet" href="../css/admin_style.css">
+    <link rel="stylesheet" href="../../css/side_config.css">
+    <link rel="stylesheet" href="../../css/admin_style.css">
 </head>
 <body>
    <div class="dashboard_layout">
     <!-- include header code  -->
-    <?php include('admin_header.php'); ?>
+    <?php include('../page_parts/admin_header.php'); ?>
     <!-- include sidenav code  -->
-    <?php include('admin_sidenav.php'); ?>
+    <?php include('../page_parts/admin_sidenav.php'); ?>
 
     <main class="main" style="padding:10px">
         <div class="main_item book_forms show" data-content="item9">
@@ -103,15 +102,13 @@ if(isset($_GET['timeout']) || !isset($admin_id)){
             
         </div>
     </main>
- <?php include('admin_footer.php'); ?>
+ <?php include('../page_parts/admin_footer.php'); ?>
    </div>
     <!-- main javascript file  -->
     <script src="https://kit.fontawesome.com/9e0e68f55e.js" crossorigin="anonymous"></script>
-    <!-- sweetalert -->
-    <script src="
-    https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js
-    "></script>
-    <script src="../js/admin.js"></script>
+ <!-- sweetalert -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.7.12/sweetalert2.min.js"></script>
+    <script src="../../js/admin.js"></script>
 
 <!-- pase all page messages to javascript-->
     <?php
